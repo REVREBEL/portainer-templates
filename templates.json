@@ -2,10 +2,10 @@
   {
     "type": "container",
     "title": "Registry",
-    "description": "Docker image registry",
+    "description": "RevRevbel Portainer + Docker Image Registry",
     "categories": ["docker"],
     "platform": "linux",
-    "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/registry.png",
+    "logo": "https://drive.google.com/file/d/1Wc3YLce0cGFFxokxXDun-Bh0hm4VL2Av/view?usp=drivesdk",
     "image": "registry:latest",
     "ports": [
       "5000/tcp"
