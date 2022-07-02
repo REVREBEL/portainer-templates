@@ -567,7 +567,7 @@
       "hostname": "redis-commander",
       "ports": ["8081/tcp"],
       "restart_policy": "unless-stopped",
-      "network": "docweb",
+      "network": "docweb"
     },
     {
       "type": 1,
