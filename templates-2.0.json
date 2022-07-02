@@ -46,7 +46,7 @@
       "command": "-H unix:///var/run/docker.sock",
       "hostname": "portainer",
       "ports": ["9000:9000/tcp", "9443:9443/tcp"],
-      "restart_policy": "unless-stopped"
+      "restart_policy": "unless-stopped",
       "network": "docweb",
       "volumes": [
         {
