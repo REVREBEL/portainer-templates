@@ -52,7 +52,6 @@
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662119/RevRebel/App%20Icons/porrtainer_bvgpsn.svg",
       "image": "portainer/portainer-ee:latest",
-      "command": "-H unix:///var/run/docker.sock",
       "hostname": "Portainer",
       "ports": [
         "9000:9000/tcp",
@@ -70,6 +69,8 @@
           "container": "/portainer_templates"
         }
       ]
+      "interactive": true,
+      "command": "-H unix:///var/run/docker.sock",  
     },
     {
       "type": 1,
