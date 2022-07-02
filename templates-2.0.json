@@ -41,7 +41,7 @@
           "label": "REGISTRY_AUTH_HTPASSWD_PATH"
         },
         {
-          "default": "/var/lib/registry",
+          "default": "/data",
           "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY",
           "label": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY"
         },
@@ -68,7 +68,7 @@
         },
         {
           "bind": "/opt/docker/docker-registry/data",          
-          "container": "/var/lib/registry"
+          "container": "/data"
         },
         {
           "bind": "/opt/docker/docker-registry/auth",
