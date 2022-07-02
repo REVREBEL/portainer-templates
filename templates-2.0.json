@@ -31,7 +31,7 @@
       "type": "1",
       "title": "Portainer",
       "description": "Portainer is a lightweight management UI which allows you too easily manage your Docker host or Swarm cluster.",
-      "categories": ["docker"],
+      "categories": ["portainer"]
       "env": [
         {
           "default": "1000",
@@ -52,7 +52,6 @@
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662119/RevRebel/App%20Icons/porrtainer_bvgpsn.svg",
       "image": "portainer/portainer-ee:latest",
-      "name": "portainerci/portainer-ee",
       "command": "-H unix:///var/run/docker.sock",
       "hostname": "Portainer",
       "ports": [
