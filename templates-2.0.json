@@ -18,6 +18,50 @@
     },
     {
       "type": 1,
+      "title": "Portainer",
+      "description": "Portainer is a lightweight management UI which allows you too easily manage your Docker host or Swarm cluster.",
+      "categories": ["portainer"],
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "TZ=America/Los_Angeles",
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662119/RevRebel/App%20Icons/porrtainer_bvgpsn.svg",
+      "image": "portainer/portainer-ee:latest",
+      "command": "-H unix:///var/run/docker.sock",
+      "hostname": "Portainer",
+      "ports": [
+        "9000:9000/tcp",
+        "9443:9443/tcp"
+      ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        {
+          "bind": "/opt/docker/app_data/portainer_data",
+          "container": "/data"
+        },
+        {
+          "bind": "/opt/docker/app_data/portainer_templates",
+          "container": "/portainer_templates"
+        }
+      ]
+    },
+    {
+      "type": 1,
       "title": "Ubuntu",
       "description": "Debian-based Linux operating system",
       "categories": ["operating-system"],
