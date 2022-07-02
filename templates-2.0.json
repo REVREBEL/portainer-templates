@@ -28,7 +28,7 @@
       "command": "/bin/bash"
     },
     {
-      "type": "1",
+      "type": 1,
       "title": "Portainer",
       "description": "Portainer is a lightweight management UI which allows you too easily manage your Docker host or Swarm cluster.",
       "categories": ["portainer"]
