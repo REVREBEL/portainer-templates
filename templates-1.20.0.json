@@ -12,7 +12,7 @@
     ],
     "volumes": [{ "container": "/var/lib/registry"}]
   },
-    {
+  {
     "type": 1,
     "title": "Portainer",
     "description": "Portainer is a lightweight management UI which allows you too easily manage your Docker host or Swarm cluster.",
