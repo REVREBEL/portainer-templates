@@ -58,6 +58,7 @@
           "readonly": true
         }
       ],
+      "name": "docker-registry",
       "hostname": "docker-registry",
       "network": "docweb",
       "restart_policy": "unless-stopped"
