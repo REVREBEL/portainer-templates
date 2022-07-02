@@ -3,18 +3,75 @@
   "templates": [
     {
       "type": 1,
-      "title": "Registry",
+      "title": "docker-registry",
       "description": "Docker image registry",
       "categories": ["docker"],
       "platform": "linux",
       "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/registry.png",
       "image": "registry:latest",
-      "ports": ["5000/tcp"],
-      "volumes": [
+      "env": [
         {
-          "container": "/var/lib/registry"
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/Los_Angeles",
+          "label": "TZ",
+          "name": "TZ"
+        },
+        {
+          "default": "htpasswd",
+          "name": "REGISTRY_AUTH",
+          "label": "Root password"
+        },
+        {
+          "default": "Registry",
+          "name": "REGISTRY_AUTH_HTPASSWD_REALM",
+          "label": "Root password"
+        },
+        {
+          "default": "/auth/registry.password",
+          "name": "REGISTRY_AUTH_HTPASSWD_PATH",
+          "label": "Root password"
+        },
+        {
+          "default": "/var/lib/registry",
+          "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY",
+          "label": "Root password"
+        },
+        {
+          "default": "0.0.0.0:5000",
+          "name": "REGISTRY_HTTP_ADDR",
+          "label": "Root password"
+        },
+        {
+          "name": "REGISTRY_HTTP_ADDR",
+          "label": "Root password"
+        },
+        {
+          "name": "REGISTRY_HTTP_ADDR",
+          "label": "Root password"
+        },
+        {
+          "name": "REGISTRY_HTTP_TLS_CERTIFICATE",
+          "label": "Root password"
+        },
+        {
+          "name": "REGISTRY_HTTP_TLS_KEY",
+          "label": "Root password"
         }
-      ]
+    ],
+      "ports": ["5000/tcp"],
+      "volumes": [{"container": "/var/lib/registry"}],
+      "hostname": "docker-registry",
+      "network": "docweb",
+      "restart_policy": "unless-stopped"
     },
     {
       "type": 1,
