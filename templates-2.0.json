@@ -48,7 +48,7 @@
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662119/RevRebel/App%20Icons/porrtainer_bvgpsn.svg",
       "image": "portainer/portainer-ee:latest",
       "name": "portainerci/portainer-ee",
-      "command": "'-H unix:///var/run/docker.sock'",
+      "command": "-H unix:///var/run/docker.sock",
       "hostname": "Portainer",
       "ports": [
         "9000:9000/tcp",
