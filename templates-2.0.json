@@ -33,7 +33,7 @@
           "name": "PGID"
         },
         {
-          "default": "TZ=America/Los_Angeles",
+          "default": "America/Los_Angeles",
           "label": "TZ",
           "name": "TZ"
         }
@@ -46,6 +46,7 @@
       "hostname": "Portainer",
       "ports": ["9000:9000/tcp", "9443:9443/tcp"],
       "restart_policy": "unless-stopped",
+    },
     {
       "type": 1,
       "title": "Ubuntu",
