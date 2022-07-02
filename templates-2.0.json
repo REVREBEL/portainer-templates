@@ -34,7 +34,12 @@
       "categories": ["docker"],
       "env": [
         {
-          "default": "100",
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
           "label": "PGID",
           "name": "PGID"
         },
