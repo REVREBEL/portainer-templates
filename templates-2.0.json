@@ -26,37 +26,9 @@
           "name": "TZ"
         },
         {
-          "default": "htpasswd",
-          "name": "REGISTRY_AUTH",
-          "label": "REGISTRY_AUTH"
-        },
-        {
-          "default": "Registry Realm",
-          "name": "REGISTRY_AUTH_HTPASSWD_REALM",
-          "label": "REGISTRY_AUTH_HTPASSWD_REALM"
-        },
-        {
-          "default": "/auth/registry.password",
-          "name": "REGISTRY_AUTH_HTPASSWD_PATH",
-          "label": "REGISTRY_AUTH_HTPASSWD_PATH"
-        },
-        {
           "default": "/data",
           "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY",
           "label": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY"
-        },
-        {
-          "default": "0.0.0.0:5000",
-          "name": "REGISTRY_HTTP_ADDR",
-          "label": "REGISTRY_HTTP_ADDR"
-        },
-        {
-          "name": "REGISTRY_HTTP_TLS_CERTIFICATE",
-          "label": "REGISTRY_HTTP_TLS_CERTIFICATE"
-        },
-        {
-          "name": "REGISTRY_HTTP_TLS_KEY",
-          "label": "REGISTRY_HTTP_TLS_KEY"
         }
       ],
       "ports": ["5000/tcp"],
@@ -72,12 +44,12 @@
         },
         {
           "bind": "/opt/docker/docker-registry/auth",
-          "container": "/auth",
+          "container": "/docker-registry/auth",
           "readonly": true
         },
         {
           "bind": "/opt/docker/docker-registry/certs",
-          "container": "/certs",
+          "container": "/docker-registry/certs/",
           "readonly": true
         },
         {
