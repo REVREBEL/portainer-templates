@@ -28,47 +28,64 @@
         {
           "default": "htpasswd",
           "name": "REGISTRY_AUTH",
-          "label": "Root password"
+          "label": "REGISTRY_AUTH"
         },
         {
           "default": "Registry",
           "name": "REGISTRY_AUTH_HTPASSWD_REALM",
-          "label": "Root password"
+          "label": "REGISTRY_AUTH_HTPASSWD_REALM"
         },
         {
           "default": "/auth/registry.password",
           "name": "REGISTRY_AUTH_HTPASSWD_PATH",
-          "label": "Root password"
+          "label": "REGISTRY_AUTH_HTPASSWD_PATH"
         },
         {
           "default": "/var/lib/registry",
           "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY",
-          "label": "Root password"
+          "label": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY"
         },
         {
           "default": "0.0.0.0:5000",
           "name": "REGISTRY_HTTP_ADDR",
-          "label": "Root password"
-        },
-        {
-          "name": "REGISTRY_HTTP_ADDR",
-          "label": "Root password"
-        },
-        {
-          "name": "REGISTRY_HTTP_ADDR",
-          "label": "Root password"
+          "label": "REGISTRY_HTTP_ADDR"
         },
         {
           "name": "REGISTRY_HTTP_TLS_CERTIFICATE",
-          "label": "Root password"
+          "label": "REGISTRY_HTTP_TLS_CERTIFICATE"
         },
         {
           "name": "REGISTRY_HTTP_TLS_KEY",
-          "label": "Root password"
+          "label": "REGISTRY_HTTP_TLS_KEY"
         }
-    ],
+      ],
       "ports": ["5000/tcp"],
-      "volumes": [{"container": "/var/lib/registry"}],
+      "volumes": [
+        {
+          "bind": "/var/run/docker.sock",
+          "container": "/var/run/docker.sock",
+          "readonly": true
+        },
+        {
+          "bind": "/opt/docker/docker-registry/data",          
+          "container": "/var/lib/registry"
+        },
+        {
+          "bind": "/opt/docker/docker-registry/auth",
+          "container": "/auth",
+          "readonly": true
+        },
+        {
+          "bind": "/opt/docker/docker-registry/certs",
+          "container": "/certs",
+          "readonly": true
+        },
+        {
+          "bind": "/opt/docker/docker-registry/config.yml",
+          "container": "/etc/docker/registry/config.yml",
+          "readonly": true
+        }
+      ],
       "hostname": "docker-registry",
       "network": "docweb",
       "restart_policy": "unless-stopped"
