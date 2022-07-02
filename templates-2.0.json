@@ -484,13 +484,39 @@
       "title": "Redis",
       "description": "Open-source in-memory data structure store",
       "categories": ["database"],
+      "env": [
+        {
+          "default": "996",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "996",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/Los_Angeles",
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
       "platform": "linux",
       "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/redis.png",
       "image": "redis:latest",
+      "hostname": "redis",
+      "name": "redis",
       "ports": ["6379/tcp"],
+      "restart_policy": "unless-stopped",
+      "network": "docweb",
       "volumes": [
         {
+          "bind": "/opt/docker/app_data/redis_data/redis_data",
           "container": "/data"
+        },
+        {
+          "bind": "/opt/docker/app_data/redis_data/config/redis.conf",
+          "container": "/etc/redis/redis.conf"
         }
       ]
     },
