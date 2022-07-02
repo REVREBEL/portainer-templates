@@ -31,7 +31,7 @@
           "label": "REGISTRY_AUTH"
         },
         {
-          "default": "Registry",
+          "default": "Registry Realm",
           "name": "REGISTRY_AUTH_HTPASSWD_REALM",
           "label": "REGISTRY_AUTH_HTPASSWD_REALM"
         },
