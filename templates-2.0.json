@@ -41,25 +41,11 @@
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662119/RevRebel/App%20Icons/porrtainer_bvgpsn.svg",
       "image": "portainer/portainer-ee:latest",
+      "interactive": true,
       "command": "-H unix:///var/run/docker.sock",
       "hostname": "Portainer",
-      "ports": [
-        "9000:9000/tcp",
-        "9443:9443/tcp"
-      ],
-      "network": "docweb",
+      "ports": ["9000:9000/tcp", "9443:9443/tcp"],
       "restart_policy": "unless-stopped",
-      "volumes": [
-        {
-          "bind": "/opt/docker/app_data/portainer_data",
-          "container": "/data"
-        },
-        {
-          "bind": "/opt/docker/app_data/portainer_templates",
-          "container": "/portainer_templates"
-        }
-      ]
-    },
     {
       "type": 1,
       "title": "Ubuntu",
