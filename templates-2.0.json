@@ -502,7 +502,7 @@
         }
       ],
       "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/redis.png",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662118/RevRebel/App%20Icons/redis_qfjfpj.svg",
       "image": "redis:latest",
       "hostname": "redis",
       "name": "redis",
@@ -537,6 +537,37 @@
           "label": "Redis password"
         }
       ]
+    },
+    {
+      "type": 1,
+      "title": "redis-commander",
+      "description": "Redis web management tool written in node.js.",
+      "categories": ["database"],
+      "env": [
+        {
+          "default": "996",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "996",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/Los_Angeles",
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
+      "platform": "linux",
+      "name": "redis-commander",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662116/RevRebel/App%20Icons/rediscommander_gmjlpb.svg",
+      "image": "rediscommander/redis-commander:latest",
+      "hostname": "redis-commander",
+      "ports": ["8081/tcp"],
+      "restart_policy": "unless-stopped",
+      "network": "docweb",
     },
     {
       "type": 1,
