@@ -63,6 +63,65 @@
       "network": "docweb",
       "restart_policy": "unless-stopped"
     },
+        {
+      "type": 1,
+      "title": "mercure",
+      "description": "Mercure is an open protocol for real-time communications designed to be fast, reliable and battery-efficient. It is a modern and convenient replacement for both the Websocket API and the higher-level libraries and services relying on it.",
+      "categories": ["database"],
+      "env": [
+        {
+          "label": "MERCURE_PUBLISHER_JWT_KEY",
+          "name": "MERCURE_PUBLISHER_JWT_KEY"
+        },
+        {
+          "label": "MERCURE_SUBSCRIBER_JWT_KEY",
+          "name": "MERCURE_SUBSCRIBER_JWT_KEY"
+        },
+        {
+          "default": ":80",
+          "label": "SERVER_NAME",
+          "name": "SERVER_NAME"
+        },
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/Los_Angeles",
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
+      "platform": "linux",
+      "name": "mercure",
+      "image": "dunglas/mercure",
+      "interactive": true,
+      "hostname": "mercure",
+      "ports": ["81:80/tcp", "444:443/tcp"],
+      "restart_policy": "unless-stopped",
+      "network": "docweb",
+      "volumes": [
+        {
+          "bind": "/var/run/docker.sock",
+          "container": "/var/run/docker.sock",
+          "readonly": true
+        },
+        {
+          "bind": "/opt/docker/app_data/mercure_data/caddy_data",
+          "container": "/data"
+        },
+        {
+          "bind": "/opt/docker/app_data/mercure_data/caddy_config",
+          "container": "/config"
+        }
+      ]
+    },
     {
       "type": 1,
       "title": "Portainer",
