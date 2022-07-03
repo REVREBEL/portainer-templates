@@ -174,13 +174,13 @@
         "categories": [ "log management", "monitoring" ],
 	    "cap_add": "- SYS ADMIN",
           "env": [
-	    { "name": "LOGSENE_TOKEN", "label": "logs token" },     
-	    { "name": "SPM_TOKEN", "label": "spm monitoring token" },     
-	    { "name": "INFRA_TOKEN", "label": "infrastructure monitoring token" },     
+	    {  "name": "LOGSENE_TOKEN", "label": "LOGSENE_TOKEN" },     
+	    {  "name": "SPM_TOKEN", "label": "SPM_TOKEN" },     
+	    {  "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" },     
 	    { "default": "https://spm-receiver.sematext.com", "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
 	    { "default": "https://logsene-receiver.sematext.com", "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
             { "default": "https://event-receiver.sematext.com", "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
-            { "defauly": "https://command.sematext.com", "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
+            { "default": "https://command.sematext.com", "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
             { "default": "1000", "label": "PUID", "name": "PUID" },
             { "default": "1000", "label": "PGID", "name": "PGID" },
             { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
