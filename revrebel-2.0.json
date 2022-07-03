@@ -153,42 +153,40 @@
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
         "categories": [ "docker" ],
         "env": [
-	  { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS },
+	  { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
 	  { "default": "mysql", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
 	  { "default": "3306", "label": "DB_MYSQL_PORT", "name": "DB_MYSQL_PORT" },
 	  { "default": "nginxproxy", "label": "DB_MYSQL_USER", "name": "DB_MYSQL_USER" },
 	  { "default": "password", "label": "DB_MYSQL_PASSWORD", "name": "DB_MYSQL_PASSWORD" },
 	  { "default": "nginxproxydb", "label": "DB_MYSQL_NAME", "name": "DB_MYSQL_NAME" },
-          { "default": "nginxproxydb", "label": "DISABLE_IPV6", "name": "DISABLE_IPV6" },
-		DISABLE_IPV6: 'true'
-          { "default": "1000", "label": "PUID", "name": "PUID" },
-          { "default": "1000", "label": "PGID", "name": "PGID" },
-          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+      { "default": "nginxproxydb", "label": "DISABLE_IPV6", "name": "DISABLE_IPV6" },
+      { "default": "1000", "label": "PUID", "name": "PUID" },
+      { "default": "1000", "label": "PGID", "name": "PGID" },
+      { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
 	  {
 	    "name": "DISABLE_IPV6",
-	    "label": "disable IPV6",
+	    "label": "disable ipv6",
 	    "description": "option to disable ipv6",
 	    "select": [
 	      { "text": "no, keep ipv6", "value": "false", "default": "false" },
 	      { "text": "yes, disable", "value": "true" }
 	    ]
 	  }
-        ],
+      ],
         "image": "jlesage/nginx-proxy-manager",
         "hostname": "nginx-proxy-manager",
         "ports": ["80:8080/tcp", "81:8181/tcp", "443:4443/tcp"],
         "network": "docweb",
         "restart_policy": "unless-stopped",
         "volumes": [ 
-	  {"container": "/data","bind":"/opt/docker/app_data/nginx-proxy_data/data"},
-	  {"container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy_data/letsencrypt"} 
-  	],
-	{
-	"healthcheck": [
-	  "test": ["CMD", "/bin/check-health"],
-  	  "interval": "10s",
-  	  "timeout": "3s
-	]
+	      {"container": "/data","bind":"/opt/docker/app_data/nginx-proxy_data/data"},
+	      {"container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy_data/letsencrypt"} 
+  	    ],
+	    "healthcheck": [
+	      {"test": ["CMD", "/bin/check-health" ]},
+  	      {"interval": "10s" },
+  	      {"timeout": "3s" }
+		 ]
       },
       {
         "type": 1,
