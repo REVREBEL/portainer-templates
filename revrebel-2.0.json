@@ -172,33 +172,12 @@
         "platform": "linux",
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
         "categories": [ "log management", "monitoring" ],
-        "cap_add:": "- SYS_ADMIN",
+        "preset": "cap_add:": "- SYS_ADMIN",
           "env": [
-	    {
-      	      "name": "TOKEN",
-              "label": "An environment variable",
- 	      "description": "Select the type of type and enter the token",
-     		"select": [
-        	  {
-          	    "text": "LOGSENE_TOKEN e",
-          	    "value": "LOGSENE_TOKEN",
-		    "name": "TOKEN_NUMBER",
-		    "label": "TOKEN_NUMBER"
-        	  },
-		  {
-		    "text": "SPM_TOKEN",
-		    "value": "SPM_TOKEN",
-		    "name": "TOKEN_NUMBER",
-		    "label": "TOKEN_NUMBER"
-		  },
-		  {
-		    "text": "INFRA_TOKEN",
-		    "value": "INFRA_TOKEN",
-		    "name": "TOKEN_NUMBER",
-		    "label": "TOKEN_NUMBER"
-      		  }
-      	       ]
-	    },
+	    { "preset", "cap_add:": "- SYS_ADMIN" },
+	    { "name": "TOKEN_NUMBER", "label": "TOKEN_NUMBER" },     
+	    { "name": "SPM_TOKEN", "label": "SPM_TOKEN" },     
+	    { "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" },     
 	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
 	    { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
             { "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
