@@ -172,7 +172,7 @@
         "platform": "linux",
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
         "categories": [ "log management", "monitoring" ],
-	"cap_add": "- SYS ADMIN"
+	    "cap_add": "- SYS ADMIN",
           "env": [
 	    { "name": "LOGSENE_TOKEN", "label": "logs token" },     
 	    { "name": "SPM_TOKEN", "label": "spm monitoring token" },     
@@ -196,7 +196,7 @@
         { "container": "/etc/group", "bind": "/etc/group", "readonly": "true" },
 	{ "container": "/var/run", "bind": "/var/run" },
 	{ "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },      
-        { "container": "/sys", "bind": "/host/sys", "readonly": "true" }
+        { "container": "/sys", "bind": "/host/sys", "readonly": "true" },
         { "container": "/dev", "bind": "/hostfs/dev", "readonly": "true" },	      
 	{ "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" }
       ]
