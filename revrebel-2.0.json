@@ -174,7 +174,10 @@
         "categories": [ "log management", "monitoring" ],
         "cap_add:": "- SYS_ADMIN",
           "env": [
-	    { "select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"] , "name": "TOKEN", "label": "TOKEN"},
+		    {
+			"select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"],
+			"token": [{"default": "1234", "name": "TOKEN", "label": "TOKEN" }]
+			 },
 	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
             { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
             { "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
