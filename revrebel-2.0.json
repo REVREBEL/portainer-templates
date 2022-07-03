@@ -49,7 +49,7 @@
       "restart_policy": "unless-stopped",
       "network": "docweb",
       "volumes": [
-        {"bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": true},
+        {"bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true"},
         {"bind": "/opt/docker/app_data/mercure_data/caddy_data", "container": "/data"},
         {"bind": "/opt/docker/app_data/mercure_data/caddy_config", "container": "/config"}
       ]
