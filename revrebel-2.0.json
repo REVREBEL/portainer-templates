@@ -164,7 +164,7 @@
         "restart_policy": "unless-stopped",
         "volumes": [ {"container": "/config","bind":"/opt/docker/app_data/nginx-proxy_data/nginx-proxy"} ]
      },
-     {
+      {
         "type": 1,
         "title": "sematext docker agent",
         "description": "Collect logs, metrics and docker events",
@@ -174,12 +174,11 @@
         "categories": [ "log management", "monitoring" ],
         "cap_add:": "- SYS_ADMIN",
           "env": [
-		  	      {
-              "select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"],
-		  	      "label": "TOKEN", "name": "TOKEN" 
-		          },
-            { "label": "TOKEN", "name": "TOKEN" },
-		        { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
+		{
+	        "label": "TOKEN",
+		"select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"], "name": "TOKEN" 
+		},
+	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
             { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
             { "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
             { "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
@@ -194,8 +193,8 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-	      { "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" },
- 		    { "container": "/var/run", "bind": "/var/run" },
+	{ "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" },
+ 	{ "container": "/var/run", "bind": "/var/run" },
         { "container": "etc/passwd", "bind": "etc/passwd", "readonly": "true"  },
         { "container": "/etc/group", "bind": "/etc/group", "readonly": "true" },
         { "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },
