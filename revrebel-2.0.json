@@ -172,9 +172,8 @@
         "platform": "linux",
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
         "categories": [ "log management", "monitoring" ],
-        "preset": "cap_add:": "- SYS_ADMIN",
           "env": [
-	    { "preset", "cap_add:": "- SYS_ADMIN" },
+	    { "preset": "cap_add:", "preset": "- SYS_ADMIN" },
 	    { "name": "TOKEN_NUMBER", "label": "TOKEN_NUMBER" },     
 	    { "name": "SPM_TOKEN", "label": "SPM_TOKEN" },     
 	    { "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" },     
