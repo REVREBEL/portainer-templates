@@ -165,19 +165,27 @@
         "volumes": [ {"container": "/config","bind":"/opt/docker/app_data/nginx-proxy_data/nginx-proxy"} ]
      },
      {
-      "type": 1,
-      "title": "sematext docker agent",
-      "description": "Collect logs, metrics and docker events",
-      "name": "sematext-docker-agent",
-      "platform": "linux",
-      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
-      "categories": [ "log management", "monitoring" ],
-        "env": [
-          { "name": "LOGSENE_TOKEN", "label": "Logs token" },
-          { "name": "SPM_TOKEN", "label": "SPM monitoring token" },
-          { "default": "1000", "label": "PUID", "name": "PUID" },
-          { "default": "1000", "label": "PGID", "name": "PGID" },
-          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+        "type": 1,
+        "title": "sematext docker agent",
+        "description": "Collect logs, metrics and docker events",
+        "name": "sematext-docker-agent",
+        "platform": "linux",
+        "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
+        "categories": [ "log management", "monitoring" ],
+        "cap_add:": "- SYS_ADMIN",
+          "env": [
+		  	      {
+              "select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"],
+		  	      "label": "TOKEN", "name": "TOKEN" 
+		          },
+            { "label": "TOKEN", "name": "TOKEN" },
+		        { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
+            { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
+            { "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
+            { "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
+            { "default": "1000", "label": "PUID", "name": "PUID" },
+            { "default": "1000", "label": "PGID", "name": "PGID" },
+            { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
       "image": "sematext/sematext-agent-docker:latest",
       "hostname": "sematext-docker-agent",
@@ -185,7 +193,16 @@
       "ports": ["5387/tcp"],
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [{ "container": "/var/run/docker.sock", "bind": "/var/run/docker.sock" }]
+      "volumes": [
+	      { "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" },
+ 		    { "container": "/var/run", "bind": "/var/run" },
+        { "container": "etc/passwd", "bind": "etc/passwd", "readonly": "true"  },
+        { "container": "/etc/group", "bind": "/etc/group", "readonly": "true" },
+        { "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },
+        { "container": "/sys", "bind": "/host/sys" },
+        { "container": "/dev", "bind": "/hostfs/dev" },
+        { "container": "/sys", "bind": "/host/sys", "readonly": "true" }
+      ]
     },
     {
       "type": 1,
