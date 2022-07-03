@@ -106,7 +106,6 @@
       "platform": "linux",
       "name": "mercure",
       "image": "dunglas/mercure",
-      "interactive": true,
       "hostname": "mercure",
       "ports": ["81:80/tcp", "444:443/tcp"],
       "restart_policy": "unless-stopped",
