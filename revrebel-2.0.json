@@ -176,7 +176,8 @@
           "env": [
 		{
 	        "label": "TOKEN",
-		"select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"], "name": "TOKEN" 
+		"select": ["LOGSENE_TOKEN", "SPM_TOKEN", "INFRA_TOKEN"], 
+		"name": "TOKEN", "label": "TOKEN"
 		},
 	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
             { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
