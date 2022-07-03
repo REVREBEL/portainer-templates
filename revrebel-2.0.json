@@ -172,34 +172,33 @@
         "platform": "linux",
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/sematext_strgkc.png",
         "categories": [ "log management", "monitoring" ],
+	"cap_add": "- SYS ADMIN"
           "env": [
-	    { "preset": "cap_add:", "preset": "- SYS_ADMIN" },
-	    { "name": "TOKEN_NUMBER", "label": "TOKEN_NUMBER" },     
-	    { "name": "SPM_TOKEN", "label": "SPM_TOKEN" },     
-	    { "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" },     
-	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
-	    { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
-            { "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
-            { "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
+	    { "name": "LOGSENE_TOKEN", "label": "logs token" },     
+	    { "name": "SPM_TOKEN", "label": "spm monitoring token" },     
+	    { "name": "INFRA_TOKEN", "label": "infrastructure monitoring token" },     
+	    { "default": "https://spm-receiver.sematext.com", "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
+	    { "default": "https://logsene-receiver.sematext.com", "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
+            { "default": "https://event-receiver.sematext.com", "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
+            { "defauly": "https://command.sematext.com", "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
             { "default": "1000", "label": "PUID", "name": "PUID" },
             { "default": "1000", "label": "PGID", "name": "PGID" },
             { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
-      "image": "sematext/sematext-agent-docker:latest",
+      "image": "sematext/agent:latest",
       "hostname": "sematext-docker-agent",
       "privileged": true,
-      "ports": ["5387/tcp"],
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [
-	{ "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" },
- 	{ "container": "/var/run", "bind": "/var/run" },
-        { "container": "etc/passwd", "bind": "etc/passwd", "readonly": "true"  },
+      "volumes": [	      
+	{ "container": "/host/sys", "bind": "/" , "readonly": "true"},   
+        { "container": "/etc/passwd", "bind": "/etc/passwd", "readonly": "true"  },	      
         { "container": "/etc/group", "bind": "/etc/group", "readonly": "true" },
-        { "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },
-        { "container": "/sys", "bind": "/host/sys" },
-        { "container": "/dev", "bind": "/hostfs/dev" },
+	{ "container": "/var/run", "bind": "/var/run" },
+	{ "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },      
         { "container": "/sys", "bind": "/host/sys", "readonly": "true" }
+        { "container": "/dev", "bind": "/hostfs/dev", "readonly": "true" },	      
+	{ "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" }
       ]
     },
     {
