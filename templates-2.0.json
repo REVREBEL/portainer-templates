@@ -70,6 +70,11 @@
       "categories": ["database"],
       "env": [
         {
+          "name": "IPV4_ADDRESS",
+          "label": "IPv4 Address",
+          "description": "IPv4 Address"
+        },
+        {
           "label": "MERCURE_PUBLISHER_JWT_KEY",
           "name": "MERCURE_PUBLISHER_JWT_KEY"
         },
@@ -128,6 +133,12 @@
       "description": "Portainer is a lightweight management UI which allows you too easily manage your Docker host or Swarm cluster.",
       "categories": ["portainer"],
       "env": [
+        {
+          "default": "10.0.2.2",
+          "name": "IPV4_ADDRESS",
+          "label": "IPv4 Address",
+          "description": "IPv4 Address"
+        },
         {
           "default": "1000",
           "label": "PUID",
