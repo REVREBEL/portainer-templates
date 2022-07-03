@@ -70,11 +70,6 @@
       "categories": ["database"],
       "env": [
         {
-          "name": "IPV4_ADDRESS",
-          "label": "IPv4 Address",
-          "description": "IPv4 Address"
-        },
-        {
           "label": "MERCURE_PUBLISHER_JWT_KEY",
           "name": "MERCURE_PUBLISHER_JWT_KEY"
         },
