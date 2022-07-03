@@ -175,11 +175,29 @@
         "cap_add:": "- SYS_ADMIN",
           "env": [
 	    {
-	      "select": [
-		{ "name": "LOGSENE_TOKEN", "label": "LOGSENE_TOKEN" }, 
-		{ "name": "SPM_TOKEN", "label": "SPM_TOKEN" },
-		{ "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" }
-	      ]
+      	      "name": "TOKEN",
+              "label": "An environment variable",
+ 	      "description": "Select the type of type and enter the token",
+     		"select": [
+        	  {
+          	    "text": "LOGSENE_TOKEN e",
+          	    "value": "LOGSENE_TOKEN",
+		    "name": "TOKEN_NUMBER",
+		    "label": "TOKEN_NUMBER"
+        	  },
+		  {
+		    "text": "SPM_TOKEN",
+		    "value": "SPM_TOKEN",
+		    "name": "TOKEN_NUMBER",
+		    "label": "TOKEN_NUMBER"
+		  },
+		  {
+		    "text": "INFRA_TOKEN",
+		    "value": "INFRA_TOKEN",
+		    "name": "TOKEN_NUMBER",
+		    "label": "TOKEN_NUMBER"
+      		  }
+      	       ]
 	    },
 	    { "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
 	    { "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
