@@ -159,34 +159,33 @@
 	  { "default": "nginxproxy", "label": "DB_MYSQL_USER", "name": "DB_MYSQL_USER" },
 	  { "default": "password", "label": "DB_MYSQL_PASSWORD", "name": "DB_MYSQL_PASSWORD" },
 	  { "default": "nginxproxydb", "label": "DB_MYSQL_NAME", "name": "DB_MYSQL_NAME" },
-      { "default": "nginxproxydb", "label": "DISABLE_IPV6", "name": "DISABLE_IPV6" },
-      { "default": "1000", "label": "PUID", "name": "PUID" },
-      { "default": "1000", "label": "PGID", "name": "PGID" },
-      { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+      	  { "default": "1000", "label": "PUID", "name": "PUID" },
+          { "default": "1000", "label": "PGID", "name": "PGID" },
+          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
 	  {
 	    "name": "DISABLE_IPV6",
-	    "label": "disable ipv6",
+	    "label": "DISABLE_UPV6",
 	    "description": "option to disable ipv6",
 	    "select": [
-	      { "text": "no, keep ipv6", "value": "false", "default": "false" },
-	      { "text": "yes, disable", "value": "true" }
+	      { "text": "NO", "value": "false", "default": "false" },
+	      { "text": "YES", "value": "true" }
 	    ]
 	  }
-      ],
+        ],
         "image": "jlesage/nginx-proxy-manager",
         "hostname": "nginx-proxy-manager",
         "ports": ["80:8080/tcp", "81:8181/tcp", "443:4443/tcp"],
         "network": "docweb",
         "restart_policy": "unless-stopped",
         "volumes": [ 
-	      {"container": "/data","bind":"/opt/docker/app_data/nginx-proxy_data/data"},
-	      {"container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy_data/letsencrypt"} 
+	      { "container": "/data","bind":"/opt/docker/app_data/nginx-proxy_data/data" },
+	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy_data/letsencrypt" } 
   	    ],
-	    "healthcheck": [
-	      {"test": ["CMD", "/bin/check-health" ]},
-  	      {"interval": "10s" },
-  	      {"timeout": "3s" }
-		 ]
+	"healthcheck": [
+	  { "test": ["CMD", "/bin/check-health" ]},
+  	  { "interval": "10s" },
+  	  { "timeout": "3s" }
+	]
       },
       {
         "type": 1,
