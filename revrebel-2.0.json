@@ -369,6 +369,44 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [{ "container": "/var/lib/rabbitmq", "bind": "/opt/docker/app_data/rabbitmq_data/data" }]
+    },
+    {
+      "type": 1,
+      "title": "akaunting",
+      "description": "Free and online accounting software. Manage your money. Get invoices paid. Track expenses.",
+      "name": "akaunting",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/syncthing_ip0kuq.png",
+      "categories": [ "finance" ]
+      "note": "Assumes redis and mysql are already running and you've added a database for Akaunting",
+      "env": [
+        { "default": "akauntingdb", "label": "DB_DATABASE", "name": "DB_DATABASE" },
+        { "default": "akaunting", "label": "DB_USERNAME", "name": "DB_USERNAME" },        
+        { "label": "DB_PASSWORD", "name": "DB_PASSWORD" },
+        { "default": "mysql", "label": "DB_HOST", "name": "DB_HOST" },          
+        { "default": "rrd_", "label": "DB_PREFIX", "name": "DB_PREFIX" },     
+        { "label": "COMPANY_NAME", "name": "COMPANY_NAME" },
+        { "label": "COMPANY_EMAIL", "name": "COMPANY_EMAIL" },
+        { "label": "ADMIN_EMAIL", "name": "ADMIN_EMAIL" },
+        { "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },
+        { "default": "redis://redis", "label": "REDIS_URL", "name": "REDIS_URL" },
+        { "default": "redis", "label": "REDIS_HOST", "name": "REDIS_HOST" },
+        { "default": "6379", "label": "REDIS_PORT", "name": "REDIS_PORT" },
+        { "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "docker.io/akaunting/akaunting:latest",
+      "hostname": "akaunting",
+      "ports": [ "8050:80/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/var/www/html", "bind": "/opt/docker/app_data/akaunting/akaunting_www" },
+        { "container": "/data", "bind": "/opt/docker/app_data/akaunting/akaunting_data" },
+        { "container": "/etc/nginx/nginx.conf, "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" },
+      ]
     }
   ]
 }
