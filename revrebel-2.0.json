@@ -377,7 +377,7 @@
       "name": "akaunting",
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/syncthing_ip0kuq.png",
-      "categories": [ "finance" ]
+      "categories": [ "finance" ],
       "note": "Assumes redis and mysql are already running and you've added a database for Akaunting",
       "env": [
         { "default": "akauntingdb", "label": "DB_DATABASE", "name": "DB_DATABASE" },
@@ -405,7 +405,7 @@
       "volumes": [
         { "container": "/var/www/html", "bind": "/opt/docker/app_data/akaunting/akaunting_www" },
         { "container": "/data", "bind": "/opt/docker/app_data/akaunting/akaunting_data" },
-        { "container": "/etc/nginx/nginx.conf, "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" },
+        { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
       ]
     }
   ]
