@@ -402,7 +402,6 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/var/www/html", "bind": "/opt/docker/app_data/akaunting/akaunting_www" },
         { "container": "/data", "bind": "/opt/docker/app_data/akaunting/akaunting_data" },
         { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
       ]
