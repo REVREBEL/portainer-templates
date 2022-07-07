@@ -392,7 +392,6 @@
         { "default": "redis://redis", "label": "REDIS_URL", "name": "REDIS_URL" },
         { "default": "redis", "label": "REDIS_HOST", "name": "REDIS_HOST" },
         { "default": "6379", "label": "REDIS_PORT", "name": "REDIS_PORT" },
-        { "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },
         { "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
