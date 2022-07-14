@@ -51,8 +51,8 @@
       "restart_policy": "unless-stopped",
       "volumes": [
         { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
-        { "bind": "/opt/docker/app_data/mercure_data/caddy_data", "container": "/data" },
-        { "bind": "/opt/docker/app_data/mercure_data/caddy_config", "container": "/config" }
+        { "bind": "/opt/docker/app_data/mercure/caddy_data", "container": "/data" },
+        { "bind": "/opt/docker/app_data/mercure/caddy_config", "container": "/config" }
       ]
     },
     {
@@ -76,7 +76,7 @@
       "restart_policy": "unless-stopped",
       "volumes": [
         { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
-        { "bind": "/opt/docker/app_data/portainer_data", "container": "/data" },
+        { "bind": "/opt/docker/app_data/portainer", "container": "/data" },
         { "bind": "/opt/docker/app_data/portainer_templates", "container": "/portainer_templates" }
       ],
       "interactive": "true"
@@ -100,7 +100,7 @@
       "ports": ["3306/tcp"],
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [{"container": "/var/lib/mysql"}]
+      "volumes": [{ "bind": "/opt/docker/app_data/mariadb", "container": "/var/lib/mysql" }]
     },
     {
       "type": 1,
@@ -140,8 +140,8 @@
         "network": "docweb",
         "restart_policy": "unless-stopped",
         "volumes": [
-          { "bind": "/opt/docker/app_data/redis_data/redis_data", "container": "/data" },
-          { "bind": "/opt/docker/app_data/redis_data/config/redis.conf", "container": "/etc/redis/redis.conf" }
+          { "bind": "/opt/docker/app_data/redis/redis", "container": "/data" },
+          { "bind": "/opt/docker/app_data/redis/config/redis.conf", "container": "/etc/redis/redis.conf" }
         ]
       },
       {
@@ -178,8 +178,8 @@
         "network": "docweb",
         "restart_policy": "unless-stopped",
         "volumes": [ 
-	      { "container": "/data","bind":"/opt/docker/app_data/nginx-proxy_data/data" },
-	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy_data/letsencrypt" } 
+	      { "container": "/data","bind":"/opt/docker/app_data/nginx-proxy/data" },
+	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy/letsencrypt" } 
   	    ],
 	"healthcheck": [
 	  { "test": ["CMD", "/bin/check-health" ]},
@@ -269,7 +269,7 @@
       "ports": ["8000/tcp"],
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [{ "bind": "/opt/docker/app_data/apprise_data/config", "container": "/config" }]
+      "volumes": [{ "bind": "/opt/docker/app_data/apprise/config", "container": "/config" }]
     },
     {
       "type": 1,
@@ -300,7 +300,7 @@
       "restart_policy": "unless-stopped",
       "volumes": [
         { "container": "/etc/authelia/", "bind": "/opt/docker/app_data/authelia_data/data" },
-        { "container": "/config", "bind": "/opt/docker/app_data/authelia_data/config" }
+        { "container": "/config", "bind": "/opt/docker/app_data/authelia/config" }
       ]
     },
     {
@@ -322,8 +322,8 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/config", "bind": "/opt/docker/app_data/wikijs_data/config" },
-        { "container": "/data", "bind": "/opt/docker/app_data/wikijs_data/data" }
+        { "container": "/config", "bind": "/opt/docker/app_data/wikijs/config" },
+        { "container": "/data", "bind": "/opt/docker/app_data/wikijs/data" }
       ]
     },
     {
@@ -345,7 +345,7 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/config", "bind": "/opt/docker/app_data/syncthing_data/config" },
+        { "container": "/config", "bind": "/opt/docker/app_data/syncthing/config" },
         { "container": "/sync" }
       ]
     },
@@ -368,7 +368,7 @@
       "ports": [ "5671/tcp", "5672/tcp" ],
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [{ "container": "/var/lib/rabbitmq", "bind": "/opt/docker/app_data/rabbitmq_data/data" }]
+      "volumes": [{ "container": "/var/lib/rabbitmq", "bind": "/opt/docker/app_data/rabbitmq/data" }]
     },
     {
       "type": 1,
@@ -402,7 +402,7 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/data", "bind": "/opt/docker/app_data/akaunting/akaunting_data" },
+        { "container": "/data", "bind": "/opt/docker/app_data/akaunting/data" },
         { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
       ]
     }
