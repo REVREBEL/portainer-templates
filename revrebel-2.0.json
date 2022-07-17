@@ -405,7 +405,7 @@
         { "container": "/data", "bind": "/opt/docker/app_data/akaunting/data" },
         { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
       ]
-    }
+    },
     {
       "type": 2,
       "title": "ohmyform",
