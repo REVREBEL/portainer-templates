@@ -418,6 +418,6 @@
         "url": "https://github.com/RevRebel/portainer-templates",
         "stackfile": "rrstacks/ohmyform/docker-stack.yml"
       }
-    },	  	  
+    }	  
   ]
 }
