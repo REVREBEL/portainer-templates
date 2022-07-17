@@ -406,5 +406,18 @@
         { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
       ]
     }
+    {
+      "type": 2,
+      "title": "ohmyform",
+      "description": "An open source alternative to TypeForm that can create stunning mobile-ready forms, surveys and questionnaires.",
+      "note": "Assumes you already have setup a seperate Postgres Database",
+      "categories": ["forms"],
+      "platform": "linux",
+      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/portainer.png",
+      "repository": {
+        "url": "https://github.com/RevRebel/portainer-templates",
+        "stackfile": "rrstacks/ohmyform/docker-stack.yml"
+      }
+    },	  	  
   ]
 }
