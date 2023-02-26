@@ -615,19 +615,55 @@
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1677402147/RevRebel/App%20Icons/percona_wrym0x.svg",
       "categories": ["database, monitoring"],
       "env": [
+        { "default": "percona.revrebel.app", "label": "VIRTUAL_HOST", "name": "VIRTUAL_HOST" },
+        { "default": "percona.revrebel.app", "label": "LETSENCRYPT_HOST", "name": "LETSENCRYPT_HOST" },
+        { "default": "pmm_session", "label": "GF_AUTH_LOGIN_COOKIE_NAME", "name": "GF_AUTH_LOGIN_COOKIE_NAME" },
+        { "label": "DISABLE_TELEMETRY", "name": "DISABLE_TELEMETRY", "select": [ 
+          { "text": "No", "value": "0", "default": true }, 
+          { "text": "Yes", "value": "1"  }
+          ]
+        },
+        { "label": "ENABLE_DBAAS", "name": "ENABLE_DBAAS", "select": [ 
+          { "text": "No", "value": "0" }, 
+          { "text": "Yes", "value": "1", "default": true  }
+          ]
+        },
+        { "label": "ENABLE_BACKUP_MANAGEMENT", "name": "ENABLE_BACKUP_MANAGEMENT", "select": [ 
+          { "text": "No", "value": "0" }, 
+          { "text": "Yes", "value": "1", "default": true  }
+          ]
+        },
+        { "label": "ENABLE_ALERTING", "name": "ENABLE_ALERTING", "select": [ 
+          { "text": "No", "value": "0" }, 
+          { "text": "Yes", "value": "1", "default": true  }
+          ]
+        },
+        { "label": "GF_ANALYTICS_CHECK_FOR_UPDATES", "name": "GF_ANALYTICS_CHECK_FOR_UPDATES", "select": [ 
+          { "text": "No", "value": "False" }, 
+          { "text": "Yes", "value": "True", "default": true  }
+          ]
+        },
+        { "label": "GF_SECURITY_DISABLE_GRAVATAR", "name": "GF_SECURITY_DISABLE_GRAVATAR", "select": [ 
+          { "text": "No", "value": "False" }, 
+          { "text": "Yes", "value": "True", "default": true  }
+          ]
+        },
 	      { "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
       "ports": ["4433:443/tcp" ],
+      "expose": ["80/tcp" ],
       "image": "percona/pmm-server:2",
       "hostname": "pmm-server",
       "container_name": "pmm-server",      
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" }
+        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" },
+        { "container": "'/var/run/docker.sock", "bind": "'/var/run/docker.sock", "readonly": true }
       ]	
     }
   ]
 }
+
