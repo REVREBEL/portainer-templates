@@ -1,0 +1,78 @@
+version: "3.7"
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  NETWORKS
+
+networks:
+  docweb:
+    name: docweb
+    external: true
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  EXTENSION FIELDS  
+  
+x-docker-defautls: &docker-defaults
+  restart: unless-stopped
+  networks:
+    - docweb
+  environment:
+    TZ: $TZ
+    PUID: $PUID
+    PGID: $PGID
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  SERVICES
+
+services:
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM FRONTENDS
+
+  #  db:
+  #    image: postgres:10-alpine
+  #    volumes:
+  #      - ./pg_data:/var/lib/postgresql/data
+  #    environment:
+  #      POSTGRES_USER: root
+  #      POSTGRES_PASSWORD: root
+  #      POSTGRES_DB: ohmyform
+  #    restart: unless-stopped
+  
+  nginx:
+    <<: *docker-defaults
+    image: nginx:alpine
+    hostname: ohmyform-nginx
+    container_name: ohmyform-nginx
+    volumes:
+      - "/opt/docker/app_data/ohmyform/default.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "8585:80"
+    depends_on:
+      - ui
+      - api
+      
+  ui:
+    <<: *docker-defaults
+    image: ohmyform/ui
+    hostname: ohmyform-ui
+    container_name: ohmyform-ui
+    environment:
+      SERVER_ENDPOINT: http://api:5000/graphql
+      PORT: 5000
+
+
+  api:
+    <<: *docker-defaults
+    image: ohmyform/api
+    hostname: ohmyform-api
+    container_name: ohmyform-api
+    environment:
+      CREATE_ADMIN: "true"
+      ADMIN_EMAIL: $ADMIN_EMAIL
+      ADMIN_USERNAME: $ADMIN_USERNAME
+      ADMIN_PASSWORD: $ADMIN_PASSWORD
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      DATABASE_DRIVER: postgres
+      DATABASE_SSL: "true"
+      DATABASE_URL: $DATABASE_URL
+      MAILER_URI: smtp://local.host
+      REDIS_HOST: redis
+      PORT: 5000

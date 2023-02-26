@@ -1,0 +1,610 @@
+{
+  "version": "2",
+  "templates": [
+    {
+      "type": 1,
+      "title": "docker-registry",
+      "description": "Docker image registry",
+      "name": "docker-registry",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662115/RevRebel/App%20Icons/docker_cqdtrc.svg",
+      "categories": ["docker"],
+      "env": [
+        { "default": "996", "label": "PUID", "name": "PUID" },
+        { "default": "996", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+        {"default": "/data", "name": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY", "label": "REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY"}
+      ],
+      "image": "registry:latest",
+      "hostname": "docker-registry",
+      "ports": ["5000/tcp"],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
+        { "bind": "/opt/docker/docker-registry/data", "container": "/data" },
+        { "bind": "/opt/docker/docker-registry/auth", "container": "/docker-registry/auth", "readonly": "true" },
+        { "bind": "/opt/docker/docker-registry/certs", "container": "/docker-registry/certs/", "readonly": "true" },
+        { "bind": "/opt/docker/docker-registry/config.yml", "container": "/etc/docker/registry/config.yml", "readonly": "true" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "mercure",
+      "description": "Mercure is an open protocol for real-time communications designed to be fast, reliable and battery-efficient",
+      "name": "mercure",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/mercure_rocks_eqtfyd.png",
+      "categories": ["database"],
+      "env": [
+        { "label": "MERCURE_PUBLISHER_JWT_KEY", "name": "MERCURE_PUBLISHER_JWT_KEY" },
+        { "label": "MERCURE_SUBSCRIBER_JWT_KEY", "name": "MERCURE_SUBSCRIBER_JWT_KEY" },
+        { "default": ":80", "label": "SERVER_NAME", "name": "SERVER_NAME" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "dunglas/mercure",
+      "hostname": "mercure",
+      "ports": [ "81:80/tcp", "444:443/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
+        { "bind": "/opt/docker/app_data/mercure/caddy_data", "container": "/data" },
+        { "bind": "/opt/docker/app_data/mercure/caddy_config", "container": "/config" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "portainer",
+      "description": "Portainer is a lightweight management UI which allows easy management of your Docker host or Swarm cluster.",
+      "name": "portainer-ee",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779152/RevRebel/App%20Icons/porrtainer_svg.svg",
+      "categories": ["portainer"],
+      "env": [
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "command": "-H unix:///var/run/docker.sock",
+      "image": "portainer/portainer-ee:latest",
+      "hostname": "portainer",
+      "ports": ["9000:9000/tcp", "9443:9443/tcp"],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
+        { "bind": "/opt/docker/app_data/portainer", "container": "/data" },
+        { "bind": "/opt/docker/app_data/portainer_templates", "container": "/portainer_templates" }
+      ],
+      "interactive": "true"
+    },    
+    {
+      "type": 1,
+      "title": "mariadb",
+      "description": "Performance beyond MySQL",
+      "name": "mariadb",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662116/RevRebel/App%20Icons/mariadb_aiagr6.svg",
+      "categories": ["database"],
+      "env": [
+        { "name": "MYSQL_ROOT_PASSWORD", "label": "Root password" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "mariadb:latest",
+      "hostname": "mariadb",
+      "ports": ["3306:3306/tcp"],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [{ "bind": "/opt/docker/app_data/mariadb", "container": "/var/lib/mysql" }]
+    },
+    {
+      "type": 1,
+      "title": "redis-commander",
+      "description": "Redis web management tool written in node.js.",
+      "name": "redis-commander",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662116/RevRebel/App%20Icons/rediscommander_gmjlpb.svg",
+      "categories": ["database"],
+      "env": [
+	{ "label": "HTTP_PASSWORD_FILE", "name": "HTTP_PASSWORD_FILE" },
+	{ "default": "/redis-commander/app-password-hash", "label": "HTTP_PASSWORD_HASH_FILE", "name": "HTTP_PASSWORD_HASH_FILE" },
+	{ "label": "HTTP_PASSWORD_HASH", "name": "HTTP_PASSWORD_HASH" },
+	{ "label": "HTTP_USER", "name": "HTTP_USER" },
+	{ "label": "HTTP_PASSWORD", "name": "HTTP_PASSWORD" },
+	{ "default": "true", "label": "TRUST_PROXY", "name": "TRUST_PROXY" },
+	{ "default": "local:redis:6379", "label": "REDIS_HOSTS", "name": "REDIS_HOSTS" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "rediscommander/redis-commander:latest",
+      "hostname": "redis-commander",
+      "ports": ["8081:8081/tcp"],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [{ "bind": "/opt/docker/app_data/redis-commander", "container": "/redis-commander" }]
+    },
+      {
+        "type": 1,
+        "title": "redis",
+        "description": "Open-source in-memory data structure store",
+        "name": "redis",
+        "platform": "linux",
+        "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662118/RevRebel/App%20Icons/redis_qfjfpj.svg",
+        "categories": [ "database" ],
+        "env": [
+          { "default": "6379", "label": "REDIS_PORT_NUMBER", "name": "REDIS_PORT_NUMBER" },
+          { "default": "6380", "label": "REDIS_TLS_PORT", "name": "REDIS_TLS_PORT" },
+          { "default": "yes", "label": "REDIS_TLS_ENABLED", "name": "REDIS_TLS_ENABLED" },
+          { "default": "/opt/revrebel/redis/certs/redis.crt", "label": "REDIS_TLS_CERT_FILE", "name": "REDIS_TLS_CERT_FILE" },
+          { "default": "/opt/revrebel/redis/certs/redis.key", "label": "REDIS_TLS_KEY_FILE", "name": "REDIS_TLS_KEY_FILE" },		
+          { "default": "/opt/revrebel/redis/certs/ca.crt", "label": "REDIS_TLS_CA_FILE", "name": "REDIS_TLS_CA_FILE" },		
+          { "default": "/opt/revrebel/redis/certs/redis.dh", "label": "REDIS_TLS_DH_PARAMS_FILE", "name": "REDIS_TLS_DH_PARAMS_FILE" },
+          { "default": "no", "label": "REDIS_TLS_AUTH_CLIENTS", "name": "REDIS_TLS_AUTH_CLIENTS" },		
+          { "default": "/opt/revrebel/redis/certs/ca.crt", "label": "REDIS_TLS_CA_FILE", "name": "REDIS_TLS_CA_FILE" },			
+          { "default": "/opt/revrebel/redis/etc/users.acl", "label": "REDIS_ACLFILE", "name": "REDIS_ACLFILE" },
+          { "default": "996", "label": "PUID", "name": "PUID" },
+          { "default": "996", "label": "PGID", "name": "PGID" },
+          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+        ],
+        "image": "redis:latest",
+        "hostname": "redis",
+        "command": "/opt/revrebel/scripts/redis/run.sh --maxmemory 100mb",
+        "ports": ["6380:6380/tcp", "6379:6379/tcp" ],
+        "network": "docweb",
+        "restart_policy": "unless-stopped",
+        "volumes": [
+          { "bind": "/opt/docker/app_data/redis/redis_data", "container": "/etc/redis/data/" },		
+  	  { "bind": "/opt/docker/app_data/redis/revrebel", "container": "/opt/revrebel" }
+        ]
+      },
+      {
+        "type": 1,
+        "title": "nginx-proxy-manager",
+        "description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.",
+        "name": "nginx-proxy-manager",
+        "platform": "linux",
+        "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
+        "categories": [ "docker" ],
+        "env": [
+	  { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
+	  { "default": "mysql", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
+	  { "default": "3306", "label": "DB_MYSQL_PORT", "name": "DB_MYSQL_PORT" },
+	  { "default": "nginxproxy", "label": "DB_MYSQL_USER", "name": "DB_MYSQL_USER" },
+	  { "default": "password", "label": "DB_MYSQL_PASSWORD", "name": "DB_MYSQL_PASSWORD" },
+	  { "default": "nginxproxydb", "label": "DB_MYSQL_NAME", "name": "DB_MYSQL_NAME" },
+      	  { "default": "1000", "label": "PUID", "name": "PUID" },
+          { "default": "1000", "label": "PGID", "name": "PGID" },
+          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+	  {
+	    "name": "DISABLE_IPV6",
+	    "label": "DISABLE_UPV6",
+	    "description": "option to disable ipv6",
+	    "select": [
+	      { "text": "NO", "value": "false", "default": "false" },
+	      { "text": "YES", "value": "true" }
+	    ]
+	  }
+        ],
+        "image": "jlesage/nginx-proxy-manager",
+        "hostname": "nginx-proxy-manager",
+        "ports": ["80:8080/tcp", "81:8181/tcp", "443:4443/tcp"],
+        "network": "docweb",
+        "restart_policy": "unless-stopped",
+        "volumes": [ 
+	      { "container": "/data","bind":"/opt/docker/app_data/nginx-proxy/data" },
+	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy/letsencrypt" },
+	      { "container": "/config","bind":"/opt/docker/app_data/nginx-proxy/config" }
+  	],
+	"healthcheck": {
+          "test": [ "CMD", "/bin/check-health"],
+            "interval": 90000000000,
+            "timeout": 10000000000,
+            "StartPeriod": 40000000000,
+            "Retries": 3
+         }
+      },
+      {
+        "type": 1,
+        "title": "sematext docker agent",
+        "description": "Collect logs, metrics and docker events",
+        "name": "sematext-docker-agent",
+        "platform": "linux",
+        "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779238/RevRebel/App%20Icons/sematext_ywn2mc.svg",
+        "categories": [ "log management", "monitoring" ],
+	    "cap_add": "- SYS ADMIN",
+          "env": [
+	    {  "name": "LOGSENE_TOKEN", "label": "LOGSENE_TOKEN" },     
+	    {  "name": "SPM_TOKEN", "label": "SPM_TOKEN" },     
+	    {  "name": "INFRA_TOKEN", "label": "INFRA_TOKEN" },     
+	    { "default": "https://spm-receiver.sematext.com", "name": "SERVER_BASE_URL", "label": "SERVER_BASE_URL" },        
+	    { "default": "https://logsene-receiver.sematext.com", "name": "LOGS_RECEIVER_URL", "label": "LOGS_RECEIVER_URL" },
+            { "default": "https://event-receiver.sematext.com", "name": "EVENT_RECEIVER_URL", "label": "EVENT_RECEIVER_URL" },  
+            { "default": "https://command.sematext.com", "name": "COMMAND_SERVER_URL", "label": "COMMAND_SERVER_URL" },  
+            { "default": "1000", "label": "PUID", "name": "PUID" },
+            { "default": "1000", "label": "PGID", "name": "PGID" },
+            { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "sematext/agent:latest",
+      "hostname": "sematext-docker-agent",
+      "privileged": true,
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [	      
+	{ "container": "/host/sys", "bind": "/" , "readonly": "true"},   
+        { "container": "/etc/passwd", "bind": "/etc/passwd", "readonly": "true"  },	      
+        { "container": "/etc/group", "bind": "/etc/group", "readonly": "true" },
+	{ "container": "/var/run", "bind": "/var/run" },
+	{ "container": "/sys/kernel/debug", "bind": "/sys/kernel/debug" },      
+        { "container": "/sys", "bind": "/host/sys", "readonly": "true" },
+        { "container": "/dev", "bind": "/hostfs/dev", "readonly": "true" },	      
+	{ "container": "/var/run/docker", "bind": "/var/run/docker.sock", "readonly": "true" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "ghost",
+      "description": "Free and open-source blogging platform",
+      "name": "ghost",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662115/RevRebel/App%20Icons/ghostblog_nnw0ec.svg",
+      "categories": [ "blog" ],
+      "note": "Access the blog management interface under <code>/ghost/</code>.",
+      "env": [
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "ghost:latest",
+      "hostname": "ghost",
+      "ports": [ "2368/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [{ "container": "/var/lib/ghost/content" }]
+    },
+    
+    {
+      "type": 1,
+      "title": "apprise api ",
+      "description": "Apprise API - Push Notifications that work with just about every platform!",
+      "name": "apprise-api",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859064/RevRebel/App%20Icons/apprise_jae18p.png",
+      "categories": ["messaging"],
+      "env": [
+        { "default": "./config", "label": "APPRISE_CONFIG_DIR", "name": "APPRISE_CONFIG_DIR" },
+        { "default": "simple", "label": "APPRISE_STATEFUL_MODE", "name": "APPRISE_STATEFUL_MODE" },
+        { "label": "SECRET_KEY", "name": "SECRET_KEY" },
+        { "default": "apprise.domain.com", "label": "BASE_URL", "name": "BASE_URL" },
+        { "default": "debug", "label": "LOG_LEVEL", "name": "LOG_LEVEL" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "linuxserver/apprise-api",
+      "hostname": "apprise-api",
+      "ports": ["8000/tcp"],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [{ "bind": "/opt/docker/app_data/apprise/config", "container": "/config" }]
+    },
+    {
+      "type": 1,
+      "title": "authelia",
+      "description": "An open-source authentication and authorization server providing 2-factor authentication and single sign-on (SSO) for your applications via a web portal.",
+      "name": "authelia",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859064/RevRebel/App%20Icons/authelia_wwp9xc.png",
+      "categories": [ "other", "tools", "authentication" ],
+      "note": "Make sure you complete the: configuration.yml. Docs @ <a href='https://docs.authelia.com/deployment/deployment-ha'>clickhere</a>.",
+      "env": [
+        { "label": "AUTHELIA_JWT_SECRET_FILE", "name": "AUTHELIA_JWT_SECRET_FILE" },
+        { "label": "AUTHELIA_SESSION_SECRET_FILE", "name": "AUTHELIA_SESSION_SECRET_FILE" }, 
+        { "label": "AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE", "name": "AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE" },
+        { "label": "AUTHELIA_DUO_API_SECRET_KEY_FILE", "name": "AUTHELIA_DUO_API_SECRET_KEY_FILE" },
+        { "label": "AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE", "name": "AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE" },
+        { "label": "AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE", "name": "AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE" },
+        { "default": "apprise.revrebel.app", "label": "BASE_URL", "name": "BASE_URL" },
+        { "default": "debug", "label": "LOG_LEVEL", "name": "LOG_LEVEL" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "authelia/authelia:latest",
+      "hostname": "authelia",
+      "ports": [ "9091:9091/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/etc/authelia/", "bind": "/opt/docker/app_data/authelia_data/data" },
+        { "container": "/config", "bind": "/opt/docker/app_data/authelia/config" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "wikijs",
+      "description": "Wikijs A modern, lightweight and powerful wiki app built on NodeJS.",  
+      "name": "wikijs",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/wikijs_enptbu.png",
+      "categories": [ "other", "tools" ],
+      "env": [
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "lscr.io/linuxserver/wikijs:latest",
+      "hostname": "wikijs",
+      "ports": [ "3100:3000/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/config", "bind": "/opt/docker/app_data/wikijs/config" },
+        { "container": "/data", "bind": "/opt/docker/app_data/wikijs/data" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "syncthing",
+      "description": "Syncthing is a continuous file synchronization program. It synchronizes files between two or more computers in real-time, safely protected from prying eyes.",
+      "name": "syncthing",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/syncthing_ip0kuq.png",
+      "categories": [ "backup", "cloud", "other", "tools" ],
+      "env": [
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "lscr.io/linuxserver/syncthing:latest",
+      "hostname": "wikijs",
+      "ports": [ "8384:8384/tcp", "21027:21027/udp", "22000:22000/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/config", "bind": "/opt/docker/app_data/syncthing/config" },
+        { "container": "/sync" }
+      ]
+    },
+    
+    {
+      "type": 1,
+      "title": "rabbitmq",
+      "description": "Highly reliable enterprise messaging system",
+      "name": "rabbitmq",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859102/RevRebel/App%20Icons/rabbitmq_jv7478.png",
+      "categories": [ "messaging" ],
+      "env": [
+	{ "default": "/var/log/rabbitmq", "label": "RABBITMQ_LOG_BASE", "name": "RABBITMQ_LOG_BASE" },
+	{ "default": "/etc/customrabbitmq/customrabbitmq.conf", "label": "RABBITMQ_CONFIG_FILE", "name": "RABBITMQ_CONFIG_FILE" },
+	{ "default": "ATKLALLROLGHWFVLNTBY", "label": "RABBITMQ_ERLANG_COOKIE", "name": "RABBITMQ_ERLANG_COOKIE" },
+	{ "default": "root", "label": "RABBITMQ_DEFAULT_USER", "name": "RABBITMQ_DEFAULT_USER" },
+	{ "default": "password", "label": "RABBITMQ_DEFAULT_PASS", "name": "RABBITMQ_DEFAULT_PASS" },     
+	{ "default": "rabbitmq.revrebel.app", "label": "RABBITMQ_DEFAULT_VHOST", "name": "RABBITMQ_DEFAULT_VHOST" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "rabbitmq:latest",
+      "hostname": "rabbitmq",
+      "ports": [ "5672:5672/tcp", "15672:15672/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+	      { "container": "/etc/rabbitmq", "bind": "/opt/docker/app_data/rabbitmq/data-etc" },
+	      { "container": "/var/lib/rabbitmq", "bind": "/opt/docker/app_data/rabbitmq/data-var" }
+      ],
+      "healthcheck": {
+        "test": [ "CMD-SHELL", "rabbitmqctl node_health_check" ],
+          "interval": "1m",
+          "timeout": "30s",
+          "Retries": 10
+       }
+    },
+   {
+      "type": 1,
+      "title": "webhooks",
+      "description": "webhook is a lightweight configurable tool written in Go, that allows you to easily create HTTP endpoints (hooks) on your server, which you can use to execute configured commands.",
+      "name": "webhooks",
+      "platform": "linux",
+      "repository": { "url": "https://github.com/adnanh/webhook" },
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779250/RevRebel/App%20Icons/webhooks_kx9ton.svg",
+      "categories": [ "tools" ],
+      "note": "For more information, https://github.com/adnanh/webhook",
+      "env": [
+        { "default": "hotreload", "label": "EXTRA_PARAM", "name": "EXTRA_PARAM" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "docker.io/roxedus/webhook",
+      "hostname": "webhooks",
+      "ports": [ "9200:9200/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [ { "container": "/config", "bind": "/opt/docker/app_data/webhooks/config" }]
+    },	  
+    {
+      "type": 1,
+      "title": "akaunting",
+      "description": "Free and online accounting software. Manage your money. Get invoices paid. Track expenses.",
+      "name": "akaunting",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779267/RevRebel/App%20Icons/akaunting_slmkan.svg",
+      "categories": [ "finance" ],
+      "note": "Assumes redis and mysql are already running and you've added a database for Akaunting",
+      "env": [
+        { "default": "akauntingdb", "label": "DB_DATABASE", "name": "DB_DATABASE" },
+        { "default": "akaunting", "label": "DB_USERNAME", "name": "DB_USERNAME" },        
+        { "label": "DB_PASSWORD", "name": "DB_PASSWORD" },
+        { "default": "mysql", "label": "DB_HOST", "name": "DB_HOST" },          
+        { "default": "rrd_", "label": "DB_PREFIX", "name": "DB_PREFIX" },     
+        { "label": "COMPANY_NAME", "name": "COMPANY_NAME" },
+        { "label": "COMPANY_EMAIL", "name": "COMPANY_EMAIL" },
+        { "label": "ADMIN_EMAIL", "name": "ADMIN_EMAIL" },
+        { "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },
+        { "default": "redis://redis", "label": "REDIS_URL", "name": "REDIS_URL" },
+        { "default": "redis", "label": "REDIS_HOST", "name": "REDIS_HOST" },
+        { "default": "6379", "label": "REDIS_PORT", "name": "REDIS_PORT" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "docker.io/akaunting/akaunting:latest",
+      "hostname": "akaunting",
+      "ports": [ "8050:80/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/data", "bind": "/opt/docker/app_data/akaunting/data" },
+        { "container": "/etc/nginx/nginx.conf", "bind": "/opt/docker/app_data/akaunting/nginx/nginx.conf" }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "ohmyform",
+      "description": "An open source alternative to TypeForm that can create stunning mobile-ready forms, surveys and questionnaires.",
+      "name": "ohmyform",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779286/RevRebel/App%20Icons/ohmyform_gv0typ.svg",
+      "categories": [ "forms" ],
+      "note": "Assumes you already have setup a seperate Postgres Database",
+      "env": [
+        { "default": "true", "label": "CREATE_ADMIN", "name": "CREATE_ADMIN" },
+        { "default": "youremail@domain.com", "label": "ADMIN_EMAIL", "name": "ADMIN_EMAIL" },        
+        { "default": "admin", "label": "ADMIN_USERNAME", "name": "ADMIN_USERNAME" },          
+        { "default": "admin", "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },     
+        { "default": "ohmyform", "label": "POSTGRES_USER", "name": "POSTGRES_USER" },
+        { "label": "POSTGRES_PASSWORD", "name": "POSTGRES_PASSWORD" },
+        { "default": "ohmyformdb", "label": "POSTGRES_DB", "name": "POSTGRES_DB" },
+        { "default": "postgres", "label": "DATABASE_DRIVER", "name": "DATABASE_DRIVER" },
+        { "default": "true", "label": "DATABASE_SSL", "name": "DATABASE_SSL" },
+        { "default": "postgresql://ohmyform:mypassword@postgresql:5432/ohmyformdb", "label": "DATABASE_URL", "name": "DATABASE_URL" },
+        { "default": "smtp://local.host", "label": "MAILER_URI", "name": "MAILER_URI" },
+        { "default": "redis://redis", "label": "REDIS_URL", "name": "REDIS_URL" },
+        { "default": "5000", "label": "PORT", "name": "PORT" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "docker.io/ohmyform/api",
+      "hostname": "ohmyform-api",
+      "container_name": "ohmyform-api",      
+      "network": "docweb",
+      "restart_policy": "unless-stopped"
+    },
+    {
+      "type": 3,
+      "title": "ohmyform",
+      "description": "An open source alternative to TypeForm that can create stunning mobile-ready forms, surveys and questionnaires.",
+      "categories": ["forms"],
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779286/RevRebel/App%20Icons/ohmyform_gv0typ.svg",
+      "note": "Assumes you already have setup a seperate Postgres Database",
+      "env": [
+        { "default": "true", "label": "CREATE_ADMIN", "name": "CREATE_ADMIN" },
+        { "default": "youremail@domain.com", "label": "ADMIN_EMAIL", "name": "ADMIN_EMAIL" },        
+        { "default": "admin", "label": "ADMIN_USERNAME", "name": "ADMIN_USERNAME" },          
+        { "default": "admin", "label": "ADMIN_PASSWORD", "name": "ADMIN_PASSWORD" },     
+        { "default": "ohmyform", "label": "POSTGRES_USER", "name": "POSTGRES_USER" },
+        { "label": "POSTGRES_PASSWORD", "name": "POSTGRES_PASSWORD" },
+        { "default": "ohmyformdb", "label": "POSTGRES_DB", "name": "POSTGRES_DB" },
+        { "default": "postgres", "label": "DATABASE_DRIVER", "name": "DATABASE_DRIVER" },
+        { "default": "true", "label": "DATABASE_SSL", "name": "DATABASE_SSL" },
+        { "default": "postgresql://ohmyform:mypassword@postgresql:5432/ohmyformdb", "label": "DATABASE_URL", "name": "DATABASE_URL" },
+        { "default": "smtp://local.host", "label": "MAILER_URI", "name": "MAILER_URI" },
+        { "default": "redis://redis", "label": "REDIS_URL", "name": "REDIS_URL" },
+        { "default": "5000", "label": "PORT", "name": "PORT" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "repository": { "url": "https://github.com/RevRebel/portainer-templates", "stackfile": "rrstacks/ohmyform/ohmyform.yml"}
+    },
+    {
+      "type": 3,
+      "title": "1password",
+      "description": "With a Secrets Automation workflow, you can securely access your 1Password items and vaults in your company's apps and cloud infrastructure using a private REST API provided by 1Password Connect Server.",
+      "name": "1password connect api",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1665183741/RevRebel/App%20Icons/1password_h7xfpp.png",
+      "categories": [ "passwords" ],
+      "env": [
+        { "default": "8088", "label": "OP_HTTP_PORT", "name": "OP_HTTP_PORT" },
+        { "label": "OP_HTTPS_PORT", "name": "OP_HTTPS_PORT" },
+        { "default": "op://rr-docker/1passworddb/database", "label": "MYSQL_DATABASE", "name": "MYSQL_DATABASE" },
+        { "default": "op://rr-docker/1passworddb/username", "label": "MYSQL_USERNAME", "name": "MYSQL_USERNAME" },
+        { "default": "op://rr-docker/1passworddb/password", "label": "MYSQL_PASSWORD", "name": "MYSQL_PASSWORD" },
+        { "default": "http://localhost:8088", "label": "OP_CONNECT_HOST", "name": "OP_CONNECT_HOST" },
+        { "default": "op://rr-docker/1passworddb/token", "label": "OP_CONNECT_TOKEN", "name": "OP_CONNECT_TOKEN" },
+        { "default": "11223", "label": "OP_BUS_PORT", "name": "OP_BUS_PORT" },
+        { "default": "/home/opuser/.op/1password-rr-docker.json", "label": "OP_SESSION", "name": "OP_SESSION" },
+        { "default": "/home/opuser/.op/data", "label": "XDG_DATA_HOME", "name": "XDG_DATA_HOME" },
+        { "default": "info", "label": "OP_LOG_LEVEL", "name": "OP_LOG_LEVEL" },	      
+        { "label": "OP_TLS_KEY_FILE", "name": "OP_TLS_KEY_FILE" },
+        { "label": "OP_TLS_CERT_FILE", "name": "OP_TLS_CERT_FILE" },	
+        { "label": "OP_TLS_USE_LETSENCRYPT", "name": "OP_TLS_KEY_FILE" },
+        { "label": "OP_TLS_DOMAIN", "name": "OP_TLS_CERT_FILE" },		      
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "repository": { "url": "https://github.com/RevRebel/portainer-templates", "stackfile": "rrstacks/1password/1password.yml"}
+    },	  
+    {
+      "type": 1,
+      "title": "mysql",
+      "description": "The most popular open-source database",
+      "name": "MySQL",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1660804166/RevRebel/App%20Icons/mysql_rnvgvh.svg",
+      "categories": ["database"],
+      "env": [
+        {"name": "MYSQL_ROOT_PASSWORD","label": "Root password"},
+        {"name": "MYSQL_ROOT_HOST","default": "%","preset": true},
+	{ "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "ports": ["3306:3306/tcp"],
+      "volumes": [{ "container": "/var/lib/mysql" }],
+      "image": "mysql/mysql-server:5.7",
+      "hostname": "mysql",
+      "container_name": "mysql",      
+      "network": "docweb",
+      "restart_policy": "unless-stopped"
+    },
+    {
+      "type": 1,
+      "title": "nginx",
+      "description": "Nginx (pronounced engine-x) is an open source reverse proxy server for HTTP HTTPS SMTP POP3, and IMAP protocols, as well as a load balancer HTTP cache, and a web server",
+      "name": "nginx",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1665388583/RevRebel/App%20Icons/nginx_nvfqin.svg",
+      "categories": ["web server"],
+      "env": [
+        {"label": "NGINX_HOST", "name": "NGINX_HOST"},
+	{"label": "NGINX_PORT", "name": "NGINX_PORT"},
+        { "default": "/etc/nginx/templates", "label": "NGINX_ENVSUBST_TEMPLATE_DIR","name": "NGINX_ENVSUBST_TEMPLATE_DIR" },
+	{ "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "ports": ["8080:80/tcp", "4444:443/tcp" ],
+      "image": "nginx:latest",
+      "hostname": "nginx",
+      "container_name": "nginx",      
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/etc/nginx/", "bind": "/opt/docker/app_data/nginx/data" }
+      ]	
+    }
+  ]
+}
