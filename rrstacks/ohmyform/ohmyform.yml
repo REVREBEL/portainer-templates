@@ -90,10 +90,23 @@ services:
       POSTGRES_DB: ${OHMYFORM_POSTGRES_DB}
       DATABASE_DRIVER: postgres
       DATABASE_SSL: "true"
-      DATABASE_URL: postgresql://${OHMYFORM_POSTGRES_USER}:${OHMYFORM_POSTGRES_PASSWORD}@${OHMYFORM_POSTGRES_DB}:5432/${OHMYFORM_POSTGRES_DB}
+      DATABASE_URL: postgresql://${OHMYFORM_POSTGRES_USER}:${OHMYFORM_POSTGRES_PASSWORD}@${OHMYFORM_POSTGRES_HOST}:5432/${OHMYFORM_POSTGRES_DB}
       MAILER_URI: smtp://local.host
       REDIS_URL: redis://redis
       PORT: 5000
+      
+      
+      DEFAULT_ROLE: user
+      MAILER_FROM: "REVREBEL Forms <no-reply@revrebel.io>"
+      SECRET_KEY: Wb8fRpBHuta2FZZBkxmVCvvPzfkR8EjKKPwvDq
+      MAILER_URI: smtp://smtp-relay.gmail.com:465
+      SIGNUP_DISABLED: "false"
+      BASE_URL: ohmyform.revrebel.app
+      NODE_ENV: production
+      APP_NAME: "REVEBEL Forms"
+      APP_DESC: "Opensource form builder alternative to TypeForm"
+      APP_KEYWORDS: typeform, pdfs, forms, opensource, formbuilder, google forms, nodejs
+      
 
   
 #    links:
