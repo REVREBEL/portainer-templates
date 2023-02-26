@@ -612,7 +612,7 @@
       "description": "Percona Monitoring and Management: an open source database monitoring, observability and management tool",
       "name": "pmm-server",
       "platform": "linux",
-      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1677399078/RevRebel/App%20Icons/percona_a6a5ze.png",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1677402147/RevRebel/App%20Icons/percona_wrym0x.svg",
       "categories": ["database, monitoring"],
       "env": [
 	      { "default": "1000", "label": "PUID", "name": "PUID" },
