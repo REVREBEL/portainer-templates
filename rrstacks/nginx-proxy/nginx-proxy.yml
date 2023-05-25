@@ -68,7 +68,7 @@ services:
     secrets:
       - MYSQL_PWD
     depends_on:
-      - db
+      - mariadb
 
   mariadb:
     <<: *docker-defaults
