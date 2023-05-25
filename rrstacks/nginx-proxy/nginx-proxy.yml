@@ -1,0 +1,62 @@
+version: "3.7"
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  NETWORKS
+
+networks:
+  docweb:
+    name: docweb
+    external: true
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  EXTENSION FIELDS  
+
+x-docker-defautls: &docker-defaults
+  restart: unless-stopped
+  networks:
+    - docweb
+  environment:
+    TZ: $TZ
+    PUID: $PUID
+    PGID: $PGID
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  SERVICES
+
+services:
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM FRONTENDS
+
+  nginx-proxy:
+    <<: *docker-defaults
+    image: jwilder/nginx-proxy
+    hostname: nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:8080"
+      - "81:8181"
+      - "443:4443"
+    networks:
+      - docweb
+    environment:
+      X_FRAME_OPTIONS: sameorigin
+      DB_MYSQL_USER: nginxproxy
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_NAME: nginxproxydb
+      NETWORK_ACCESS: internal
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "/opt/docker/app_data/nginx-proxy/data:data"
+      - "/opt/docker/app_data/nginx-proxy/letsencrypt:/etc/nginx/certs"
+      - "/opt/docker/app_data/nginx-proxy/config:/config"
+      - "/opt/docker/app_data/nginx-proxy/nginx:/etc/nginx/"
+
+  whoami:
+    image: jwilder/whoami
+    hostname: whoami
+    container_name: whoami
+    environment:
+      - VIRTUAL_HOST=whoami.local
+
+volumes:
+  data:
+  letsencrypt:
+  config:
+  nginx:
