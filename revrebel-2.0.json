@@ -556,7 +556,44 @@
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
       "repository": { "url": "https://github.com/RevRebel/portainer-templates", "stackfile": "rrstacks/1password/1password.yml"}
-    },	  
+    },
+    {
+      "type": 3,
+      "title": "nginx-proxy-manager",
+      "description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.",
+      "name": "nginx-proxy-manager",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
+      "categories": [ "reverse-proxy" ],
+        "env": [
+	  { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
+	  { "default": "mysql", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
+	  { "default": "3306", "label": "DB_MYSQL_PORT", "name": "DB_MYSQL_PORT" },
+	  { "default": "nginxproxy", "label": "DB_MYSQL_USER", "name": "DB_MYSQL_USER" },
+	  { "default": "password", "label": "DB_MYSQL_PASSWORD", "name": "DB_MYSQL_PASSWORD" },
+	  { "default": "nginxproxydb", "label": "DB_MYSQL_NAME", "name": "DB_MYSQL_NAME" },
+      	  { "default": "1000", "label": "PUID", "name": "PUID" },
+          { "default": "1000", "label": "PGID", "name": "PGID" },
+          { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+	  {
+	    "name": "DISABLE_IPV6",
+	    "label": "DISABLE_UPV6",
+	    "description": "option to disable ipv6",
+	    "select": [
+	      { "text": "NO", "value": "false", "default": "false" },
+	      { "text": "YES", "value": "true" }
+	    ]
+	  }
+      ],
+      "healthcheck": {
+        "test": [ "CMD", "/bin/check-health"],
+        "interval": 90000000000,
+        "timeout": 10000000000,
+        "StartPeriod": 40000000000,
+        "Retries": 3
+     },
+"repository": { "url": "https://github.com/RevRebel/portainer-templates", "stackfile": "rrstacks/nginx-proxy/nginx-proxy.yml"}
+    },
     {
       "type": 1,
       "title": "mysql",
