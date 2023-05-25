@@ -39,9 +39,8 @@ services:
       TRUST_DOWNSTREAM_PROXY: false
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "/opt/docker/app_data/nginx-proxy/data:/data"
       - "/opt/docker/app_data/nginx-proxy/letsencrypt:/etc/nginx/certs"
-      - "/opt/docker/app_data/nginx-proxy/config:/config"
+      
   whoami:
     image: jwilder/whoami
     hostname: whoami
