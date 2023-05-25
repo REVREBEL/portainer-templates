@@ -35,10 +35,6 @@ services:
     networks:
       - docweb
     environment:
-      X_FRAME_OPTIONS: sameorigin
-      DB_MYSQL_USER: nginxproxy
-      DB_MYSQL_PORT: 3306
-      DB_MYSQL_NAME: nginxproxydb
       NETWORK_ACCESS: internal
       TRUST_DOWNSTREAM_PROXY: false
     volumes:
