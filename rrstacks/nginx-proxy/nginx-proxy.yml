@@ -86,7 +86,7 @@ services:
       # MYSQL_PASSWORD: "npm"  # use secret instead
       MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD
     volumes:
-      - /opt/docker/app_data/nginx-proxy/data/mysql:/var/lib/mysql
+      - /opt/docker/app_data/nginx-proxy/mysql:/var/lib/mysql
     secrets:
       - DB_ROOT_PWD
       - MYSQL_PWD
