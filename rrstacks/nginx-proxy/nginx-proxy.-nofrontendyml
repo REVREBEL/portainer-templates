@@ -35,6 +35,7 @@ services:
     networks:
       - docweb
     environment:
+      ENABLE_IPV6: true
       NETWORK_ACCESS: internal
       TRUST_DOWNSTREAM_PROXY: false
     volumes:
