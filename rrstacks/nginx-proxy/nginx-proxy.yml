@@ -31,7 +31,6 @@ services:
     container_name: nginx-proxy
     ports:
       - "80:8080"
-      - "81:8181"
       - "443:4443"
     networks:
       - docweb
@@ -41,6 +40,7 @@ services:
       DB_MYSQL_PORT: 3306
       DB_MYSQL_NAME: nginxproxydb
       NETWORK_ACCESS: internal
+      TRUST_DOWNSTREAM_PROXY: false
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "/opt/docker/app_data/nginx-proxy/data:/data"
