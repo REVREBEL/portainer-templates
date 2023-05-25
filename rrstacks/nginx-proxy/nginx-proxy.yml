@@ -1,0 +1,97 @@
+version: "3.8"
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  SECRETS
+
+secrets:
+  # Secrets are single-line text files where the sole content is the secret
+  # Paths in this example assume that secrets are kept in local folder called ".secrets"
+  DB_ROOT_PWD:
+    file: .secrets/db_root_pwd.txt
+  MYSQL_PWD:
+    file: .secrets/mysql_pwd.txt
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  NETWORKS
+
+networks:
+  docweb:
+    name: docweb
+    external: true
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  EXTENSION FIELDS  
+
+x-docker-defautls: &docker-defaults
+  restart: unless-stopped
+  networks:
+    - docweb
+  environment:
+    TZ: $TZ
+    PUID: $PUID
+    PGID: $PGID
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMM  SERVICES
+
+services:
+
+# MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM FRONTENDS
+
+  nginx-proxy:
+    <<: *docker-defaults
+    image: 'jc21/nginx-proxy-manager:latest'
+    hostname: nginx-proxy
+    container_name: nginx-proxy    
+    restart: unless-stopped
+    ports:
+      # Public HTTP Port:
+      - '80:8080'
+      # Public HTTPS Port:
+      - '443:4443'
+      # Admin Web Port:
+      - '81:8181'
+    networks:
+      - docweb
+    environment:
+      # These are the settings to access your db
+      X_FRAME_OPTIONS: sameorigin
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "nginxproxy"
+      # DB_MYSQL_PASSWORD: "npm"  # use secret instead
+      DB_MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD
+      DB_MYSQL_NAME: "nginxproxydb"
+      # If you would rather use Sqlite, remove all DB_MYSQL_* lines above
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "/opt/docker/app_data/nginx-proxy/data:/data"
+      - "/opt/docker/app_data/nginx-proxy/letsencrypt:/etc/letsencrypt"
+    secrets:
+      - MYSQL_PWD
+    depends_on:
+      - db
+
+  mariadb:
+    <<: *docker-defaults
+    image: jc21/mariadb-aria
+    hostname: mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      - docweb
+    environment:
+      # MYSQL_ROOT_PASSWORD: "npm"  # use secret instead
+      MYSQL_ROOT_PASSWORD__FILE: /run/secrets/DB_ROOT_PWD
+      MYSQL_DATABASE: "nginxproxydb"
+      MYSQL_USER: "nginxproxy"
+      # MYSQL_PASSWORD: "npm"  # use secret instead
+      MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD
+    volumes:
+      - /opt/docker/app_data/nginx-proxy/data/mysql:/var/lib/mysql
+    secrets:
+      - DB_ROOT_PWD
+      - MYSQL_PWD
+
+volumes:
+  data:
+  letsencrypt:
+  mysql:
