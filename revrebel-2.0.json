@@ -201,7 +201,7 @@
         "volumes": [ 
 	      { "container": "/data","bind":"/opt/docker/app_data/nginx-proxy/data" },
 	      { "container": "/templates/","bind":"/opt/docker/app_data/nginx-proxy/temp/nginx" },
-	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy/letsencrypt" },
+	      { "container": "/etc/letsencrypt","bind":"/opt/docker/app_data/nginx-proxy/letsencrypt" }
   	],
 	"healthcheck": {
           "test": [ "CMD", "/bin/check-health"],
