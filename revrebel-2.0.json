@@ -171,9 +171,11 @@
         "platform": "linux",
         "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
         "categories": [ "docker" ],
+	"extra_hosts": [ "host.docker.internal:host-gateway" ],     
         "env": [
+	  { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
 	  { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
-	  { "default": "mariadb", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
+	  { "default": "host.docker.internal", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
 	  { "default": "3306", "label": "DB_MYSQL_PORT", "name": "DB_MYSQL_PORT" },
 	  { "default": "nginxproxy", "label": "DB_MYSQL_USER", "name": "DB_MYSQL_USER" },
 	  { "default": "password", "label": "DB_MYSQL_PASSWORD", "name": "DB_MYSQL_PASSWORD" },
