@@ -205,10 +205,8 @@
   	],
 	"healthcheck": {
           "test": [ "CMD", "/bin/check-health"],
-            "interval": 90000000000,
-            "timeout": 10000000000,
-            "StartPeriod": 40000000000,
-            "Retries": 3
+            "interval": "10s",
+            "timeout": "3s"
          }
       },
       {
