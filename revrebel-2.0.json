@@ -695,15 +695,14 @@
             { "text": "No", "value": "0", "default": true },
             { "text": "Yes", "value": "1" }]} ],
       "ports": [ "911/tcp", "2525/tcp" ],
-      "image": "healthchecks/healthchecks:latest",
-      "command": "docker-compose exec healthchecks /opt/healthchecks/manage.py createsuperuser",      
+      "image": "healthchecks/healthchecks:latest",   
       "hostname": "healthcheck",
       "container_name": "healthcheck",
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/opt/healthchecks/static-collected/img/logo-regular-multicolor-small.png",
-          "bind": "opt/docker/app_data/brand/logo-regular-multicolor-small.png", "readonly": true },
+        { "container": "/opt/healthchecks/static-collected/img/logo_regular_multicolor_small.png",
+          "bind": "/opt/docker/app_data/brand/logo_regular_multicolor_small.png", "readonly": true },
         { "container": "/data", "bind": "/opt/docker/app_data/healthcheck/data", "readonly": true }]
     },
     { 
