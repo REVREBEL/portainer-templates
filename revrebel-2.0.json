@@ -400,7 +400,7 @@
       "description": "webhook is a lightweight configurable tool written in Go, that allows you to easily create HTTP endpoints (hooks) on your server, which you can use to execute configured commands.",
       "name": "webhooks",
       "platform": "linux",
-      "repository": 
+      "repository": {
       "url": "https://github.com/adnanh/webhook" },
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779250/RevRebel/App%20Icons/webhooks_kx9ton.svg",
       "categories": [ "tools" ],
@@ -703,13 +703,10 @@
       "restart_policy": "unless-stopped",
       "volumes": [
         { "container": "/opt/healthchecks/static-collected/img/logo-regular-multicolor-small.png",
-          "bind": "opt/docker/app_data/brand/logo-regular-multicolor-small.png",
-          "readonly": true }
-        { "container": "/data",
-          "bind": "/opt/docker/app_data/healthcheck/data",
-          "readonly": true }]
+          "bind": "opt/docker/app_data/brand/logo-regular-multicolor-small.png", "readonly": true },
+        { "container": "/data", "bind": "/opt/docker/app_data/healthcheck/data", "readonly": true }]
     },
-    {
+    { 
       "type": 1,
       "title": "pmm-server",
       "description": "Percona Monitoring and Management: an open source database monitoring, observability and management tool",
