@@ -694,7 +694,7 @@
           "select": [
             { "text": "No", "value": "0", "default": true },
             { "text": "Yes", "value": "1" }]} ],
-      "ports": [ "911/tcp", "2525/tcp" ],
+      "ports": [ "911:911/tcp", "2525:2525/tcp" ],
       "image": "healthchecks/healthchecks:latest",   
       "hostname": "healthcheck",
       "container_name": "healthcheck",
