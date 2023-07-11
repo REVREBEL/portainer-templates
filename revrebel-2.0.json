@@ -693,15 +693,15 @@
         { "label": "REGISTRATION_OPEN", "name": "REGISTRATION_OPEN",
           "select": [
             { "text": "No", "value": "false", "default": true },
-            { "text": "Yes", "value": "true" }]} ],
-	{ "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
+            { "text": "Yes", "value": "true" }] },
+	   { "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
           "select": [
             { "text": "No", "value": "false" },
-            { "text": "Yes", "value": "true", "default": true }, 
+            { "text": "Yes", "value": "true", "default": true }]}, 
 	{ "label": "SHELL_ENABLED", "name": "SHELL_ENABLED",
           "select": [
             { "text": "No", "value": "false" },
-            { "text": "Yes", "value": "true", "default": true  }]} ],   
+            { "text": "Yes", "value": "true", "default": true }]} ],   
       "ports": [ "911:911/tcp", "2525:2525/tcp" ],
       "image": "healthchecks/healthchecks:latest",   
       "hostname": "healthcheck",
