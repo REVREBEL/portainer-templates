@@ -657,12 +657,12 @@
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
-      "ports": ["8443:8443/tcp", ":8084:8084/tcp" ],
+      "ports": ["8444:8444/tcp", ":8084:8084/tcp" ],
       "image": "fauna/faunadb",
       "command": "--config /etc/faunadb.yml",
       "hostname": "faunadb",
       "container_name": "faunadb",
-      "Networks": { "docweb": { "network": { "IPv4Address": "10.0.2.30"}}},
+      "Networks": { "docweb": { "IPv4Address": "10.0.2.50" }},
       "restart_policy": "unless-stopped",
       "volumes": [
         { "container": "/var/lib/faunadb", "bind": "/opt/docker/app_data/faunadb/data" },
