@@ -657,7 +657,7 @@
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
-      "ports": ["8443:8443/tcp", "8084:8084/tcp" ],
+      "ports": ["10.0.2.30:8443:8443/tcp", "10.0.2.30:8084:8084/tcp" ],
       "image": "fauna/faunadb",
       "command": "--config /etc/faunadb.yml",
       "hostname": "faunadb",
