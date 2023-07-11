@@ -366,6 +366,7 @@
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859102/RevRebel/App%20Icons/rabbitmq_jv7478.png",
       "categories": [ "messaging" ],
+      "hosts": [ "host.docker.internal:host-gateway" ],
       "env": [
         { "default": "/var/log/rabbitmq", "label": "RABBITMQ_LOG_BASE", "name": "RABBITMQ_LOG_BASE" },
         { "default": "/etc/customrabbitmq/customrabbitmq.conf", "label": "RABBITMQ_CONFIG_FILE", "name": "RABBITMQ_CONFIG_FILE" },
@@ -399,10 +400,11 @@
       "description": "webhook is a lightweight configurable tool written in Go, that allows you to easily create HTTP endpoints (hooks) on your server, which you can use to execute configured commands.",
       "name": "webhooks",
       "platform": "linux",
-      "repository": {
+      "repository": 
       "url": "https://github.com/adnanh/webhook" },
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1658779250/RevRebel/App%20Icons/webhooks_kx9ton.svg",
       "categories": [ "tools" ],
+      "hosts": [ "host.docker.internal:host-gateway" ],
       "note": "For more information, https://github.com/adnanh/webhook",
       "env": [
         { "default": "hotreload", "label": "EXTRA_PARAM", "name": "EXTRA_PARAM" },
@@ -636,7 +638,9 @@
       "platform": "faunadb", 
       "logo": "",
       "categories": [ "database" ],
+      "hosts": [ "host.docker.internal:host-gateway" ],
       "env": [
+        { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
         { "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }],
@@ -667,7 +671,9 @@
       "platform": "linux",
       "logo": "",
       "categories": [ "docker-toolkit" ],
+      "hosts": [ "host.docker.internal:host-gateway" ],
       "env": [
+        { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
         { "default": "healthcheck.revrebel.app; localhost", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
         { "default": "http://localhost:911", "label": "SITE_ROOT", "name": "SITE_ROOT" },
         { "default": "Enter a Secret Key", "label": "SECRET_KEY", "name": "SECRET_KEY"  },
@@ -710,8 +716,7 @@
       "name": "pmm-server",
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1677402147/RevRebel/App%20Icons/percona_wrym0x.svg",
-      "categories": [
-        "database, monitoring" ],
+      "categories": [ "database, monitoring" ],
       "env": [
         { "default": "percona.revrebel.app", "label": "VIRTUAL_HOST", "name": "VIRTUAL_HOST" },
         { "default": "percona.revrebel.app", "label": "LETSENCRYPT_HOST", "name": "LETSENCRYPT_HOST" },
@@ -752,16 +757,8 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        {
-          "container": "/srv",
-          "bind": "/opt/docker/app_data/pmm-server/pmm-data"
-        },
-        {
-          "container": "/var/run/docker.sock",
-          "bind": "/var/run/docker.sock",
-          "readonly": true
-        }
-      ]
+        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" },
+        { "container": "/var/run/docker.sock", "bind": "/var/run/docker.sock",  "readonly": true }]
     }
   ]
 }
