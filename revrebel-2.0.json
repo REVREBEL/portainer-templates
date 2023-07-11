@@ -653,7 +653,7 @@
         { "container": "/var/log/faunadb", "bind": "/opt/docker/app_data/faunadb/logs" },
         { "container": "/etc/faunadb.yml", "bind": "/opt/docker/app_data/faunadb/config/faunadb.yml" }],
       "healthcheck": {
-        "test": [ test: curl --fail "http://localhost || exit 1" ],
+        "test": [ "test: curl --fail http://localhost || exit 1" ],
         "interval": "60s",
         "timeout": "10s",
         "startPeriod": "20s",
