@@ -657,17 +657,17 @@
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
-      "ports": ["10.0.2.30:8443:8443/tcp", "10.0.2.30:8084:8084/tcp" ],
+      "ports": ["8443:8443/tcp", ":8084:8084/tcp" ],
       "image": "fauna/faunadb",
       "command": "--config /etc/faunadb.yml",
       "hostname": "faunadb",
-      "container_name": "faunadb",      
-      "network": "docweb",
+      "container_name": "faunadb",
+      "Networks": { "docweb": { "network": { "IPv4Address": "10.0.2.30"}}},
       "restart_policy": "unless-stopped",
       "volumes": [
         { "container": "/var/lib/faunadb", "bind": "/opt/docker/app_data/faunadb/data" },
         { "container": "/var/log/faunadb", "bind": "/opt/docker/app_data/faunadb/logs" },
-	   { "container": "/etc/faunadb.yml", "bind": "/opt/docker/app_data/faunadb/config/faunadb.yml" }
+	{ "container": "/etc/faunadb.yml", "bind": "/opt/docker/app_data/faunadb/config/faunadb.yml" }
       ],
       "healthcheck": {
         "test": [ "CMD", "/bin/check-health"],
@@ -701,7 +701,7 @@
           { "text": "No", "value": "False" }, { "text": "Yes", "value": "True", "default": true  } ]},
         { "label": "GF_SECURITY_DISABLE_GRAVATAR", "name": "GF_SECURITY_DISABLE_GRAVATAR", "select": [ 
           { "text": "No", "value": "False" }, { "text": "Yes", "value": "True", "default": true  } ]},
-	      { "default": "1000", "label": "PUID", "name": "PUID" },
+	{ "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
