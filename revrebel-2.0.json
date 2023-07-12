@@ -696,12 +696,12 @@
             { "text": "Yes", "value": "true" }] },
 	   { "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
           "select": [
-            { "text": "No", "value": "false" },
-            { "text": "Yes", "value": "true", "default": true }]}, 
+            { "text": "No", "value": "False" },
+            { "text": "Yes", "value": "True", "default": true }]}, 
 	{ "label": "SHELL_ENABLED", "name": "SHELL_ENABLED",
           "select": [
-            { "text": "No", "value": "false" },
-            { "text": "Yes", "value": "true", "default": true }]} ],   
+            { "text": "No", "value": "False" },
+            { "text": "Yes", "value": "True", "default": true }]} ],   
       "ports": [ "911:911/tcp", "2525:2525/tcp" ],
       "image": "healthchecks/healthchecks:latest",   
       "hostname": "healthcheck",
