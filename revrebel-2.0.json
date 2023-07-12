@@ -705,8 +705,7 @@
       "ports": [ "911:911/tcp", "2525:2525/tcp" ],
       "image": "healthchecks/healthchecks:latest",
       "hostname": "healthchecks",
-      "container_name": "healthchecks",
-      "command": 'run -e "DOCKER_HOST=$(ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')"',	      
+      "container_name": "healthchecks",	      
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
