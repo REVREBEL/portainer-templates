@@ -632,13 +632,38 @@
     },
     {
       "type": 1,
+      "title": "chiefonboarding",
+      "description": "In one sentence, ChiefOnboarding is an open-source remote-first employee onboarding platform that helps you streamline the employee experience for both the new hire and you through Slack or the web portal.",
+      "name": "chiefonboarding",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1665388583/RevRebel/App%20Icons/nginx_nvfqin.svg",
+      "categories": [ "onboarding website" ],
+      "note": "Requires Proxy Server and Darabase not include in this confif",
+      "hosts": [ "host.docker.internal:host-gateway" ],
+      "env": [
+        { "label": "SECRET_KEY", "name": "SECRET_KEY" },
+        { "label": "DATABASE_URL", "name": "DATABASE_URL" },
+        { "default": "chefonboarding.domain.app", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ",  "name": "TZ" }],
+      "ports": [ "8000:8000/tcp" ],
+      "image": "chiefonboarding/chiefonboarding:latest",
+      "hostname": "onboard",
+      "container_name": "onboard",
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/srv", "bind": "/opt/docker/app_data/onboard/www/" }]
+    },
+    {
+      "type": 1,
       "title": "faunadb",
       "description": "Fauna is a flexible, developer-friendly, transactional database delivered as a secure and scalable cloud API with native GraphQL.",
       "name": "faunadb", 
-      "platform": "faunadb", 
+      "platform": "linoux", 
       "logo": "",
       "categories": [ "database" ],
-
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
         { "default": "1000", "label": "PUID", "name": "PUID" },
