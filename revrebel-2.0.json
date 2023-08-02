@@ -64,7 +64,8 @@
       "env": [
         { "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
-        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+        { "default": "X_FRAME_OPTIONS", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" }
       ],
       "command": "-H unix:///var/run/docker.sock",
       "image": "portainer/portainer-ee:latest",
@@ -192,6 +193,7 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
+        { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
         { "container": "/data", "bind": "/opt/docker/app_data/nginx-proxy/data" },
         { "container": "/etc/nginx/conf.d", "bind": "/opt/docker/app_data/nginx-proxy/tmp/nginx" },
         { "container": "/templates", "bind": "/opt/docker/app_data/nginx-proxy/temp/nginx" },
