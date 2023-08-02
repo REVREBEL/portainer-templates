@@ -658,6 +658,45 @@
     },
     {
       "type": 1,
+      "title": "mend renovate",
+      "description": "Mend Renovate is a dependency update automation tool. It scans your software, discovers dependencies, automatically checks to see if an updated version exists, and helps you by submitting automated pull requests.",
+      "name": "mend renovate",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1665388583/RevRebel/App%20Icons/nginx_nvfqin.svg",
+      "categories": [ "code automation" ],
+      "note": "<a href='https://docs.renovatebot.com' For More Information & Config </a> | <a href='https://www.mend.io/free-developer-tools/renovate/on-premises' License Key </a>",
+      "hosts": [ "host.docker.internal:host-gateway" ],
+      "repository": { "url": "https://github.com/renovatebot/renovate" },
+      "env": [
+        { "default": "github", "label": "RENOVATE_PLATFORM", "name": "RENOVATE_PLATFORM" },
+        { "default": "/api", "label": "RENOVATE_ENDPOINT", "name": "RENOVATE_ENDPOINT" },
+        { "label": "ACCEPT_WHITESOURCE_TOS", "name": "ACCEPT_WHITESOURCE_TOS",
+        "select": [
+          { "text": "No", "value": "False" },
+          { "text": "Yes", "value": "True", "default": true } ]}, 
+        { "default":  "0 * * * *", "label": "SCHEDULER_CRON", "name": "SCHEDULER_CRON" },
+        { "default": "Enter Github App ID", "label": "GITHUB_APP_ID", "name": "GITHUB_APP_ID" },
+        { "default": "Enter Github App Key", "label": "GITHUB_APP_KEY", "name": "GITHUB_APP_KEY" },
+        { "default": "1234567891011", "label": "LICENSE_KEY", "name": "LICENSE_KEY" },
+        { "default": "Personal Access Token", "label": "GITHUB_COM_TOKEN", "name": "GITHUB_COM_TOKEN" },
+        { "default": "renovate", "label": "WEBHOOK_SECRET", "name": "WEBHOOK_SECRET"},
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ",  "name": "TZ" }],
+      "ports": [ "80:8030/tcp" ],
+      "image": "renovate/renovate:latest",
+      "hostname": "renovate",
+      "container_name": "renovate",
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "container": "/usr/src/app/config.js", "bind": "/opt/docker/app_data/mend-renovate/config.js" },
+        { "container": "/usr/src/app/renovate.private-key.pem", "bind": "/renovate.private-key.pem" },
+        { "container": "/var/run/docker.sock", "bind": "/var/run/docker.sock" },
+        { "container": "/tmp/", "bind": "/tmp/renovate/" } ]
+    },
+    {
+      "type": 1,
       "title": "faunadb",
       "description": "Fauna is a flexible, developer-friendly, transactional database delivered as a secure and scalable cloud API with native GraphQL.",
       "name": "faunadb", 
@@ -696,7 +735,7 @@
       "name": "healthchecks",
       "platform": "linux",
       "logo": "",
-      "categories": [ "docker-toolkit" ],
+      "categories": [ "V" ],
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
         { "default": "healthcheck.revrebel.app; localhost", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
@@ -719,11 +758,11 @@
           "select": [
             { "text": "No", "value": "false", "default": true },
             { "text": "Yes", "value": "true" }] },
-	   { "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
+	     { "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
           "select": [
             { "text": "No", "value": "False" },
             { "text": "Yes", "value": "True", "default": true }]}, 
-	{ "label": "SHELL_ENABLED", "name": "SHELL_ENABLED",
+	      { "label": "SHELL_ENABLED", "name": "SHELL_ENABLED",
           "select": [
             { "text": "No", "value": "False" },
             { "text": "Yes", "value": "True", "default": true }]} ],   
