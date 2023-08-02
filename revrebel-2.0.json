@@ -662,7 +662,7 @@
       "description": "Mend Renovate is a dependency update automation tool. It scans your software, discovers dependencies, automatically checks to see if an updated version exists, and helps you by submitting automated pull requests.",
       "name": "mend renovate",
       "platform": "linux",
-      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1665388583/RevRebel/App%20Icons/nginx_nvfqin.svg",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1690982973/RevRebel/App%20Icons/mend_oyqvcd.png",
       "categories": [ "code automation" ],
       "note": "<a href='https://docs.renovatebot.com' For More Information & Config </a> | <a href='https://www.mend.io/free-developer-tools/renovate/on-premises' License Key </a>",
       "hosts": [ "host.docker.internal:host-gateway" ],
@@ -701,7 +701,7 @@
       "description": "Fauna is a flexible, developer-friendly, transactional database delivered as a secure and scalable cloud API with native GraphQL.",
       "name": "faunadb", 
       "platform": "linoux", 
-      "logo": "",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1690982973/RevRebel/App%20Icons/docker-healthcheck_qrcjs7.png",
       "categories": [ "database" ],
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
@@ -734,7 +734,7 @@
       "description": "Healthchecks is a watchdog for your cron jobs. It's a web server that listens for pings from your cron jobs, plus a web interface.",
       "name": "healthchecks",
       "platform": "linux",
-      "logo": "",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1690982973/RevRebel/App%20Icons/docker-healthcheck_qrcjs7.png",
       "categories": [ "V" ],
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
