@@ -732,7 +732,7 @@
       "description": "Fauna is a flexible, developer-friendly, transactional database delivered as a secure and scalable cloud API with native GraphQL.",
       "name": "faunadb", 
       "platform": "linoux", 
-      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1690982973/RevRebel/App%20Icons/docker-healthcheck_qrcjs7.png",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1690982973/RevRebel/App%20Icons/fauna_pyus4w.png",
       "categories": [ "database" ],
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
