@@ -169,9 +169,40 @@
       "platform": "linux",
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
       "categories": [ "docker" ],
-      "hosts": [ "host.docker.internal:host-gateway" ],
       "env": [
-        { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
+        { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" },
+        { "name": "DISABLE_IPV6", "label": "DISABLE_UPV6",
+          "description": "option to disable ipv6",
+          "select": [
+            { "text": "NO", "value": "false", "default": "false" },
+            { "text": "YES", "value": "true" } ]}
+      ],
+      "image": "jlesage/nginx-proxy-manager:latest",
+      "hostname": "nginx-proxy-manager",
+      "ports": [ "80:8080/tcp", "81:8181/tcp", "443:4443/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
+        { "container": "/data", "bind": "/opt/docker/app_data/nginx-proxy/data" },
+        { "container": "/etc/letsencrypt", "bind": "/opt/docker/app_data/nginx-proxy/letsencrypt" }
+      ],
+      "healthcheck": { "test": [ "CMD", "/bin/check-health" ], 
+	    "interval": "10s", 
+ 	    "timeout": "3s" }
+      },
+      {
+      "type": 1,
+      "title": "night proxy manager with mariadb options",
+      "description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.",
+      "name": "night proxy manager with mariadb options",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1656859103/RevRebel/App%20Icons/nginx-proxy_guswuc.png",
+      "categories": [ "docker" ],
+      "env": [
         { "default": "sameorigin", "label": "X_FRAME_OPTIONS", "name": "X_FRAME_OPTIONS" },
         { "default": "mariadb", "label": "DB_MYSQL_HOST", "name": "DB_MYSQL_HOST" },
         { "default": "3306", "label": "DB_MYSQL_PORT", "name": "DB_MYSQL_PORT" },
@@ -187,7 +218,7 @@
             { "text": "NO", "value": "false", "default": "false" },
             { "text": "YES", "value": "true" } ]}
       ],
-      "image": "jlesage/nginx-proxy-manager",
+      "image": "jlesage/nginx-proxy-manager:latest",
       "hostname": "nginx-proxy-manager",
       "ports": [ "80:8080/tcp", "81:8181/tcp", "443:4443/tcp" ],
       "network": "docweb",
@@ -195,13 +226,11 @@
       "volumes": [
         { "bind": "/var/run/docker.sock", "container": "/var/run/docker.sock", "readonly": "true" },
         { "container": "/data", "bind": "/opt/docker/app_data/nginx-proxy/data" },
-        { "container": "/etc/nginx/conf.d", "bind": "/opt/docker/app_data/nginx-proxy/tmp/nginx" },
-        { "container": "/templates", "bind": "/opt/docker/app_data/nginx-proxy/temp/nginx" },
         { "container": "/etc/letsencrypt", "bind": "/opt/docker/app_data/nginx-proxy/letsencrypt" }
       ],
       "healthcheck": { "test": [ "CMD", "/bin/check-health" ], 
-	    "interval": "10s", 
- 	    "timeout": "3s" }
+      "interval": "10s", 
+      "timeout": "3s" }
       },
     { 
     "type": 1,
