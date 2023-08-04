@@ -773,9 +773,9 @@
         { "default": "http://localhost:911", "label": "SITE_ROOT", "name": "SITE_ROOT" },
         { "default": "Enter a Secret Key", "label": "SECRET_KEY", "name": "SECRET_KEY"  },
         { "default": "postgres", "label": "DB", "name": "DB" },
-        { "default": "192.168.13.1", "label": "DB_HOST", "name": "DB_HOST"  },
-        { "default": "healthcheckdb", "label": "DB_NAME", "name": "DB_NAME" },
-        { "default": "healthcheck", "label": "DB_USER", "name": "DB_USER" },
+        { "default": "host.docker.internal", "label": "DB_HOST", "name": "DB_HOST"  },
+        { "default": "healthchecksdb", "label": "DB_NAME", "name": "DB_NAME" },
+        { "default": "healthchecks", "label": "DB_USER", "name": "DB_USER" },
         { "default": "Enter DB Password", "label": "DB_PASSWORD", "name": "DB_PASSWORD" },
         { "default": "5432", "label": "DB_PORT", "name": "DB_PORT" },
         { "default": "REVREBEL", "label": "SITE_NAME", "name": "SITE_NAME" },
@@ -797,7 +797,7 @@
           "select": [
             { "text": "No", "value": "False" },
             { "text": "Yes", "value": "True", "default": true }]} ],   
-      "ports": [ "911:911/tcp", "2525:2525/tcp" ],
+      "ports": [ "8000:911/tcp", "2525:2525/tcp" ],
       "image": "healthchecks/healthchecks:latest",
       "hostname": "healthchecks",
       "container_name": "healthchecks",	      
@@ -807,7 +807,7 @@
         { "container": "/var/run/docker.sock", "bind": "/var/run/docker.sock", "readonly": "true" },
         { "container": "/opt/healthchecks/static-collected/img/logo_regular_multicolor_small.png",
           "bind": "/opt/docker/app_data/brand/logo_regular_multicolor_small.png", "readonly": true },
-        { "container": "/data", "bind": "/opt/docker/app_data/healthcheck/data", "readonly": true }]
+        { "container": "/data", "bind": "/opt/docker/app_data/healthchecks/data", "readonly": true }]
     },
     { 
       "type": 1,
