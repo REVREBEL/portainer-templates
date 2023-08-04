@@ -770,7 +770,7 @@
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
         { "default": "healthchecks.revrebel.app; localhost", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
-        { "default": "http://localhost:911", "label": "SITE_ROOT", "name": "SITE_ROOT" },
+        { "default": "https://healthchecks.revrebel.app:8000", "label": "SITE_ROOT", "name": "SITE_ROOT" },
         { "default": "Enter a Secret Key", "label": "SECRET_KEY", "name": "SECRET_KEY"  },
         { "default": "postgres", "label": "DB", "name": "DB" },
         { "default": "host.docker.internal", "label": "DB_HOST", "name": "DB_HOST"  },
@@ -778,8 +778,8 @@
         { "default": "healthchecks", "label": "DB_USER", "name": "DB_USER" },
         { "default": "Enter DB Password", "label": "DB_PASSWORD", "name": "DB_PASSWORD" },
         { "default": "5432", "label": "DB_PORT", "name": "DB_PORT" },
-        { "default": "REVREBEL", "label": "SITE_NAME", "name": "SITE_NAME" },
-        { "default": "https://healthchecks.revrebel.app", "label": "DB_SITE_ROOTPORT", "name": "DB_SITE_ROOTPORT" },
+        { "default": "/static-collected/img//static-collected/img/logo_regular_multicolor_small.png", "label": "SITE_LOGO_URL", "name": "SITE_LOGO_URL" },
+        { "default": "REVREBEL Healthchecks", "label": "SITE_NAME", "name": "SITE_NAME" },
         { "default": "2525", "label": "SMTPD_PORT", "name": "SMTPD_PORT" },
         { "label": "DEBUG", "name": "DEBUG",
           "select": [
