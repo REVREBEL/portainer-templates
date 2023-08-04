@@ -700,7 +700,7 @@
       "repository": { "url": "https://github.com/renovatebot/renovate" },
       "env": [
         { "default": "github", "label": "RENOVATE_PLATFORM", "name": "RENOVATE_PLATFORM" },
-        { "default": "/api", "label": "RENOVATE_ENDPOINT", "name": "RENOVATE_ENDPOINT" },
+        { "default": "https://api.github.com", "label": "RENOVATE_ENDPOINT", "name": "RENOVATE_ENDPOINT" },
         { "label": "ACCEPT_WHITESOURCE_TOS", "name": "ACCEPT_WHITESOURCE_TOS",
         "select": [
           { "text": "No", "value": "False" },
