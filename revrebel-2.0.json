@@ -703,8 +703,8 @@
         { "default": "https://api.github.com", "label": "RENOVATE_ENDPOINT", "name": "RENOVATE_ENDPOINT" },
         { "label": "ACCEPT_WHITESOURCE_TOS", "name": "ACCEPT_WHITESOURCE_TOS",
         "select": [
-          { "text": "No", "value": "False" },
-          { "text": "Yes", "value": "True", "default": true } ]}, 
+          { "text": "No", "value": "n" },
+          { "text": "Yes", "value": "y", "default": "true" } ]}, 
         { "default":  "0 * * * *", "label": "SCHEDULER_CRON", "name": "SCHEDULER_CRON" },
         { "default": "Enter Github App ID", "label": "GITHUB_APP_ID", "name": "GITHUB_APP_ID" },
         { "default": "Enter Github App Key", "label": "GITHUB_APP_KEY", "name": "GITHUB_APP_KEY" },
@@ -769,7 +769,7 @@
       "categories": [ "V" ],
       "env": [
         { "default": "/run/host-services/ssh-auth.sock", "label": "SSH_AUTH_SOCK", "name": "SSH_AUTH_SOCK" },
-        { "default": "healthcheck.revrebel.app; localhost", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
+        { "default": "healthchecks.revrebel.app; localhost", "label": "ALLOWED_HOSTS", "name": "ALLOWED_HOSTS" },
         { "default": "http://localhost:911", "label": "SITE_ROOT", "name": "SITE_ROOT" },
         { "default": "Enter a Secret Key", "label": "SECRET_KEY", "name": "SECRET_KEY"  },
         { "default": "postgres", "label": "DB", "name": "DB" },
@@ -779,16 +779,16 @@
         { "default": "Enter DB Password", "label": "DB_PASSWORD", "name": "DB_PASSWORD" },
         { "default": "5432", "label": "DB_PORT", "name": "DB_PORT" },
         { "default": "REVREBEL", "label": "SITE_NAME", "name": "SITE_NAME" },
-        { "default": "https://healthcheck.revrebel.app", "label": "DB_SITE_ROOTPORT", "name": "DB_SITE_ROOTPORT" },
+        { "default": "https://healthchecks.revrebel.app", "label": "DB_SITE_ROOTPORT", "name": "DB_SITE_ROOTPORT" },
         { "default": "2525", "label": "SMTPD_PORT", "name": "SMTPD_PORT" },
         { "label": "DEBUG", "name": "DEBUG",
           "select": [
-            { "text": "No", "value": "false", "default": true },
-            { "text": "Yes", "value": "true" }] },
+            { "text": "No", "value": "False", "default": true },
+            { "text": "Yes", "value": "True" }] },
         { "label": "REGISTRATION_OPEN", "name": "REGISTRATION_OPEN",
           "select": [
-            { "text": "No", "value": "false", "default": true },
-            { "text": "Yes", "value": "true" }] },
+            { "text": "No", "value": "False", "default": true },
+            { "text": "Yes", "value": "True" }] },
 	     { "label": "INTEGRATIONS_ALLOW_PRIVATE_IPS", "name": "INTEGRATIONS_ALLOW_PRIVATE_IPS",
           "select": [
             { "text": "No", "value": "False" },
