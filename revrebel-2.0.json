@@ -138,28 +138,17 @@
       "categories": [ "database" ],
       "env": [
         { "default": "6379", "label": "REDIS_PORT_NUMBER", "name": "REDIS_PORT_NUMBER" },
-        { "default": "6380", "label": "REDIS_TLS_PORT", "name": "REDIS_TLS_PORT" },
-        { "default": "yes", "label": "REDIS_TLS_ENABLED", "name": "REDIS_TLS_ENABLED" },
-        { "default": "/opt/docker/app_data/redis/certs/edis.crt", "label": "REDIS_TLS_CERT_FILE", "name": "REDIS_TLS_CERT_FILE" },
-        { "default": "/opt/docker/app_data/redis/certs/redis.key", "label": "REDIS_TLS_KEY_FILE", "name": "REDIS_TLS_KEY_FILE" },
-        { "default": "/opt/docker/app_data/redis/certs/edis.dh", "label": "REDIS_TLS_DH_PARAMS_FILE", "name": "REDIS_TLS_DH_PARAMS_FILE" },
-        { "default": "no", "label": "REDIS_TLS_AUTH_CLIENTS", "name": "REDIS_TLS_AUTH_CLIENTS" },
-        { "default": "/opt/docker/app_data/redis/certs/ca.crt", "label": "REDIS_TLS_CA_FILE", "name": "REDIS_TLS_CA_FILE" },
-        { "default": "/opt/docker/app_data/redis/users.acl", "label": "REDIS_ACLFILE", "name": "REDIS_ACLFILE" },
         { "default": "996", "label": "PUID", "name": "PUID" },
         { "default": "996", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
       "image": "redis:latest",
       "hostname": "redis",
-      "command": "/opt/docker/app_data/redis/scrips/run.sh --maxmemory 100mb",
       "ports": [ "6380:6380/tcp", "6379:6379/tcp" ],
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "bind": "/opt/docker/app_data/redis/data", "container": "/etc/redis/data/" },
-        { "bind": "/opt/docker/app_data/redis/scripts", "container": "/opt/scripts" },
-        { "bind": "/opt/docker/app_data/redis/certs", "container": "/opt/certs" }]
+        { "bind": "/opt/docker/app_data/redis/data", "container": "/etc/redis/data/" }]
     },
     {
       "type": 1,
