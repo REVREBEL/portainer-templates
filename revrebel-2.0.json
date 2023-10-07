@@ -130,6 +130,33 @@
     },
     {
       "type": 1,
+      "title": "redis stack",
+      "description": "Open-source in-memory data structure store, contains both Redis Stack server and RedisInsight. This container is best for local development because you can use the embedded RedisInsight to visualize your data.",
+      "name": "redis",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662118/RevRebel/App%20Icons/redis_qfjfpj.svg",
+      "categories": [ "database" ],
+      "extra_hosts": [
+        "host.docker.internal:host-gateway",
+        "redis.revrebel.app:127.0.0.1"
+      ],
+      "env": [
+        { "default": "6379", "label": "REDIS_PORT_NUMBER", "name": "REDIS_PORT_NUMBER" },
+        { "default": "redis", "label": "REDIS_HOST", "name": "REDIS_HOST" },
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
+      ],
+      "image": "redis/redis-stack:latest",
+      "hostname": "redis",
+      "ports": [  "6379:6379/tcp", "8001:8001/tcp" ],
+      "network": "docweb",
+      "restart_policy": "unless-stopped",
+      "volumes": [
+        { "bind": "/opt/docker/app_data/redis/data", "container": "/data", "name": "redis_data", "create_host_path": true }]
+    },
+    {
+      "type": 1,
       "title": "redis",
       "description": "Open-source in-memory data structure store",
       "name": "redis",
@@ -138,18 +165,21 @@
       "categories": [ "database" ],
       "env": [
         { "default": "6379", "label": "REDIS_PORT_NUMBER", "name": "REDIS_PORT_NUMBER" },
-        { "default": "996", "label": "PUID", "name": "PUID" },
-        { "default": "996", "label": "PGID", "name": "PGID" },
+        { "default": "redis", "label": "REDIS_HOST", "name": "REDIS_HOST" },
+
+        { "default": "1000", "label": "PUID", "name": "PUID" },
+        { "default": "1000", "label": "PGID", "name": "PGID" },
         { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }
       ],
       "image": "redis:latest",
       "hostname": "redis",
-      "ports": [ "6380:6380/tcp", "6379:6379/tcp" ],
+      "ports": [  "6379:6379/tcp", "6380:6380/tcp" ],
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
         { "bind": "/opt/docker/app_data/redis/data", "container": "/etc/redis/data/" }]
     },
+
     {
       "type": 1,
       "title": "nginx-proxy-manager",
@@ -809,18 +839,23 @@
       "logo": "https://res.cloudinary.com/revrebel/image/upload/v1677402147/RevRebel/App%20Icons/percona_wrym0x.svg",
       "categories": [ "database, monitoring" ],
       "env": [
-        { "default": "percona.revrebel.app", "label": "VIRTUAL_HOST", "name": "VIRTUAL_HOST" },
-        { "default": "percona.revrebel.app", "label": "LETSENCRYPT_HOST", "name": "LETSENCRYPT_HOST" },
-        { "default": "pmm_session", "label": "GF_AUTH_LOGIN_COOKIE_NAME", "name": "GF_AUTH_LOGIN_COOKIE_NAME"
-        },
+        { "default": "[INSENRT AUTh TOKEN]", "label": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN", "name": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN" },
+        { "default": "https://minio.docker.revrebel.cloud.audit", "label": "MINIO_AUDIT_WEBHOOK_ENDPOINT", "name": "MINIO_AUDIT_WEBHOOK_ENDPOINT" },
+        { "default": "pmm_session", "label": "MINIO_LOGGER_WEBHOOK_ENDPOINT", "name": "MINIO_LOGGER_WEBHOOK_ENDPOINT" },
+        { "default": "pmm_session", "label": "MINIO_NOTIFY_REDIS_FORMAT", "name": "MINIOMINIO_NOTIFY_REDIS_FORMAT_LOGGER_WEBHOOK_ENDPOINT" },
+        { "default": "pmm_session", "label": "MINIO_NOTIFY_REDIS_ADDRESS", "name": "MINIO_NOTIFY_REDIS_ADDRESS" },
         { "label": "DISABLE_TELEMETRY", "name": "DISABLE_TELEMETRY",
           "select": [
             { "text": "No", "value": "0", "default": true },
-            { "text": "Yes", "value": "1" }] },
+            { "text": "Yes", "value": "1" }
+          ] 
+        },
         { "label": "ENABLE_DBAAS", "name": "ENABLE_DBAAS",
           "select": [
             { "text": "Yes", "value": "1", "default": true },
-            { "text": "Yes", "value": "1", "default": true }] },
+            { "text": "No", "value": "0" }
+          ] 
+        },
         { "label": "ENABLE_BACKUP_MANAGEMENT", "name": "ENABLE_BACKUP_MANAGEMENT",
           "select": [
             { "text": "No", "value": "0" },
@@ -848,8 +883,72 @@
       "network": "docweb",
       "restart_policy": "unless-stopped",
       "volumes": [
-        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" },
-        { "container": "/var/run/docker.sock", "bind": "/var/run/docker.sock",  "readonly": true }]
+        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" }]
+    },
+    { 
+      "type": 1,
+      "title": "minio-server",
+      "description": "MinIO scales horizontally (scale out) through a concept called Server Pools. Server pools are an approach that combines multiple technology components. ",
+      "name": "minio-server",
+      "pl`atform": "linux",
+      "logo": "",
+      "categories": [ "object storage" ],
+      "env": [
+        { "label": "MINIO_API_ROOT_ACCESS", "name": "MINIO_API_ROOT_ACCESS", 
+        "select": [
+            { "text": "Disable", "value": "off" },
+            { "text": "Enabled",  "value": "on",  "default": true } ]},
+        { "default": "minio-admin", "label": "MINIO_ROOT_USER", "name": "MINIO_ROOT_USER" },
+        { "default": "minio-admin", "label": "MINIO_ROOT_PASSWORD", "name": "MINIO_ROOT_PASSWORD" },
+        { "default": "minio.docker.revrebel.cloud", "label": "MINIO_DOMAIN", "name": "MINIO_DOMAIN" },
+        { "default": "losangeleshq", "label": "MINIO_SITE_COMMENT", "name": "MINIO_SITE_COMMENT" },
+        { "default": "dockerrevrebelcloud", "label": "MINIO_SITE_NAME", "name": "MINIO_SITE_NAME" },
+        { "default": "us-east-", "label": "MINIO_SITE_REGION", "name": "MINIO_SITE_REGION" },
+        { "default": "/mnt/docker_disk1", "label": "MINIO_VOLUMES", "name": "MINIO_VOLUMES" },
+        { "label": "MINIO_API_SYNC_EVENTS:", "name": "MINIO_API_SYNC_EVENTS",
+          "select": [
+            { "text": "Disabled", "value": "off" },
+            { "text": "Enabled",  "value": "on", "default": true } ]},
+        { "label": "MINIO_NOTIFY_REDIS_ENABLE:", "name": "MINIO_NOTIFY_REDIS_ENABLE",
+          "select": [
+            { "text": "Disabled", "value": "off" },
+            { "text": "Enabled",  "value": "on", "default": true } ]},
+        { "default": "redis:6379", "label": "MINIO_NOTIFY_REDIS_ADDRESS", "name": "MINIO_NOTIFY_REDIS_ADDRESS" },
+        { "default": "namespace", "label": "MINIO_NOTIFY_REDIS_FORMAT", "name": "MINIO_NOTIFY_REDIS_FORMAT" },
+        { "label": "MINIO_LOGGER_WEBHOOK_ENABLE:", "name": "MINIO_LOGGER_WEBHOOK_ENABLE",
+          "select": [
+            { "text": "Disabled", "value": "off" },
+            { "text": "Enabled",  "value": "on", "default": true } ]},
+        { "label": "MINIO_LOGGER_WEBHOOK_ENDPOINT", "name": "MINIO_LOGGER_WEBHOOK_ENDPOINT" },
+        { "label": "MINIO_LOGGER_WEBHOOK_AUTH_TOKEN", "name": "MINIO_LOGGER_WEBHOOK_AUTH_TOKEN" },
+        { "label": "MINIO_AUDIT_WEBHOOK_ENABLE:", "name": "MINIO_AUDIT_WEBHOOK_ENABLE",
+          "select": [
+            { "text": "Disabled", "value": "off" },
+            { "text": "Enabled",  "value": "on", "default": true } ]},
+        { "label": "MINIO_AUDIT_WEBHOOK_ENDPOINT", "name": "MINIO_AUDIT_WEBHOOK_ENDPOINT" },
+        { "label": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN", "name": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN" },
+        { "default": "endpoint", "label": "MINIO_NOTIFY_REDIS_FORMAT", "name": "MINIO_NOTIFY_REDIS_FORMAT" }
+      ],
+        "expose": [ "9000", "9001", "443" ],
+        "extra_hosts": [
+          "host.docker.internal:host-gateway",
+          "minio.docker.revrebel.cloud:127.0.0.1"
+        ],
+        "hostname": "minio",
+        "image": "minio/minio:latest",
+        "networks": { "docweb": { "aliases": [ "minio_s3", "minio_console" ]} },
+        "container_name": "minio-server",
+        "restart_policy": "unless-stopped",
+        "healthcheck": {
+          "test": [ "test: CMD curl -fail //localhost:9000/minio/health/live || exit 1" ],
+          "interval": "60s",
+          "timeout": "30s",
+          "startPeriod": "30s",
+          "retries": "5"
+      },
+      "volumes": [
+        { "type": "bind", "source": "/mnt/docker_disk1", "target": "/data", "bind": { "create_host_path": true }}
+      ]
     }
   ]
 }
