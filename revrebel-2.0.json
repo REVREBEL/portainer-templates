@@ -179,7 +179,27 @@
       "volumes": [
         { "bind": "/opt/docker/app_data/redis/data", "container": "/etc/redis/data/" }]
     },
-
+    {
+      "type": 1,
+      "title": "redis-overcommit",
+      "description": "Enable overcommitting to memory on a host running a redis container.",
+      "name": "redis-overcommit",
+      "platform": "linux",
+      "logo": "https://res.cloudinary.com/revrebel/image/upload/v1654662118/RevRebel/App%20Icons/redis_qfjfpj.svg",
+      "categories": [ "database" ],
+      "build": {
+        "context": "https://github.com/bkuhl/redis-overcommit-on-host.git",
+        "dockerfile": "Dockerfile"
+      },
+      "hostname": "edis-overcommit",
+      "ports": [  "6379:6379/tcp", "6380:6380/tcp" ],
+      "network": "docweb",
+      "privileged": true,
+      "restart_policy": "no",
+      "volumes": [
+        { "type": "bind", "source": "/proc/sys/vm", "target": "/mnt/vm", "bind": { "create_host_path": true }} 
+      ]
+    },
     {
       "type": 1,
       "title": "nginx-proxy-manager",
