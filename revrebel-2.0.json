@@ -914,45 +914,53 @@
       "logo": "",
       "categories": [ "object storage" ],
       "env": [
-        { "label": "MINIO_API_ROOT_ACCESS", "name": "MINIO_API_ROOT_ACCESS", 
+        { "label": "API Root Access", "name": "MINIO_API_ROOT_ACCESS", 
         "select": [
             { "text": "Disable", "value": "off" },
             { "text": "Enabled",  "value": "on",  "default": true } ]},
-        { "default": "minio-admin", "label": "MINIO_ROOT_USER", "name": "MINIO_ROOT_USER" },
-        { "default": "minio-admin", "label": "MINIO_ROOT_PASSWORD", "name": "MINIO_ROOT_PASSWORD" },
-        { "default": "minio.docker.revrebel.cloud", "label": "MINIO_DOMAIN", "name": "MINIO_DOMAIN" },
-        { "default": "losangeleshq", "label": "MINIO_SITE_COMMENT", "name": "MINIO_SITE_COMMENT" },
-        { "default": "dockerrevrebelcloud", "label": "MINIO_SITE_NAME", "name": "MINIO_SITE_NAME" },
-        { "default": "us-east-", "label": "MINIO_SITE_REGION", "name": "MINIO_SITE_REGION" },
-        { "default": "/mnt/docker_disk1", "label": "MINIO_VOLUMES", "name": "MINIO_VOLUMES" },
-        { "label": "MINIO_API_SYNC_EVENTS:", "name": "MINIO_API_SYNC_EVENTS",
+        { "default": "minio-admin", "label": "Root User", "name": "MINIO_ROOT_USER" },
+        { "default": "minio-admin", "label": "Root Password", "name": "MINIO_ROOT_PASSWORD" },
+        { "default": "minio.docker.revrebel.cloud", "label": "Domain", "name": "MINIO_DOMAIN" },
+        { "default": "losangeleshq", "label": "Site Comment", "name": "MINIO_SITE_COMMENT" },
+        { "default": "dockerrevrebelcloud", "label": "Site Name", "name": "MINIO_SITE_NAME" },
+        { "default": "us-east-", "label": "Site Region", "name": "MINIO_SITE_REGION" },
+        { "default": "/mnt/docker_disk1", "label": "Volumes", "name": "MINIO_VOLUMES" },
+        { "label": "Api Sync Events?:", "name": "MINIO_API_SYNC_EVENTS",
           "select": [
             { "text": "Disabled", "value": "off" },
             { "text": "Enabled",  "value": "on", "default": true } ]},
-        { "label": "MINIO_NOTIFY_REDIS_ENABLE:", "name": "MINIO_NOTIFY_REDIS_ENABLE",
+        { "label": "Redis Enable?:", "name": "MINIO_NOTIFY_REDIS_ENABLE",
           "select": [
             { "text": "Disabled", "value": "off" },
             { "text": "Enabled",  "value": "on", "default": true } ]},
-        { "default": "redis:6379", "label": "MINIO_NOTIFY_REDIS_ADDRESS", "name": "MINIO_NOTIFY_REDIS_ADDRESS" },
-        { "default": "namespace", "label": "MINIO_NOTIFY_REDIS_FORMAT", "name": "MINIO_NOTIFY_REDIS_FORMAT" },
-        { "label": "MINIO_LOGGER_WEBHOOK_ENABLE:", "name": "MINIO_LOGGER_WEBHOOK_ENABLE",
+        { "default": "redis:6379", "label": "Redis Address", "name": "MINIO_NOTIFY_REDIS_ADDRESS" },
+        { "default": "namespace", "label": "Redis Format", "name": "MINIO_NOTIFY_REDIS_FORMAT" },
+        { "label": "Logger Webhook Enable?", "name": "MINIO_LOGGER_WEBHOOK_ENABLE",
           "select": [
             { "text": "Disabled", "value": "off" },
             { "text": "Enabled",  "value": "on", "default": true } ]},
-        { "label": "MINIO_LOGGER_WEBHOOK_ENDPOINT", "name": "MINIO_LOGGER_WEBHOOK_ENDPOINT" },
-        { "label": "MINIO_LOGGER_WEBHOOK_AUTH_TOKEN", "name": "MINIO_LOGGER_WEBHOOK_AUTH_TOKEN" },
-        { "label": "MINIO_AUDIT_WEBHOOK_ENABLE:", "name": "MINIO_AUDIT_WEBHOOK_ENABLE",
+        { "label": "Logger Webhook Endpoint", "name": "MINIO_LOGGER_WEBHOOK_ENDPOINT" },
+        { "label": "Logger Webhook Auth Token", "name": "MINIO_LOGGER_WEBHOOK_AUTH_TOKEN" },
+        { "label": "Webhook Enable?:", "name": "MINIO_AUDIT_WEBHOOK_ENABLE",
           "select": [
             { "text": "Disabled", "value": "off" },
             { "text": "Enabled",  "value": "on", "default": true } ]},
-        { "label": "MINIO_AUDIT_WEBHOOK_ENDPOINT", "name": "MINIO_AUDIT_WEBHOOK_ENDPOINT" },
-        { "label": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN", "name": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN" },
-        { "default": "endpoint", "label": "MINIO_NOTIFY_REDIS_FORMAT", "name": "MINIO_NOTIFY_REDIS_FORMAT" }
+        { "label": "Webhook Endpoint", "name": "MINIO_AUDIT_WEBHOOK_ENDPOINT" },
+        { "label": "Webhook Auth Token", "name": "MINIO_AUDIT_WEBHOOK_AUTH_TOKEN" },
+        { "default": "endpoint", "label": "Webhook Notify Format", "name": "MINIO_NOTIFY_WEBHOOK_FORMAT" }
       ],
-        "expose": [ "9000", "9001", "443" ],
+        "expose": [ "9000", "9001" ],
         "extra_hosts": [
           "host.docker.internal:host-gateway",
           "minio.docker.revrebel.cloud:127.0.0.1"
+        ],
+        "command": [
+          "server",
+          "--address",
+          "0.0.0.0:9000",
+          "--console-address",
+          "0.0.0.0:9001",
+          "/data"
         ],
         "hostname": "minio",
         "image": "minio/minio:latest",
@@ -967,7 +975,12 @@
           "retries": "5"
       },
       "volumes": [
-        { "type": "bind", "source": "/mnt/docker_disk1", "target": "/data", "bind": { "create_host_path": true }}
+        {
+          "type": "bind",
+          "source": "/mnt/docker_disk1",
+          "target": "/data",
+          "bind": { "create_host_path": true }
+        }
       ]
     }
   ]
