@@ -873,9 +873,7 @@
         { "label": "ENABLE_DBAAS", "name": "ENABLE_DBAAS",
           "select": [
             { "text": "Yes", "value": "1", "default": true },
-            { "text": "No", "value": "0" }
-          ] 
-        },
+            { "text": "No", "value": "0" }]  },
         { "label": "ENABLE_BACKUP_MANAGEMENT", "name": "ENABLE_BACKUP_MANAGEMENT",
           "select": [
             { "text": "No", "value": "0" },
@@ -894,7 +892,7 @@
 	  	{ "text": "Yes", "value": "True", "default": true }  ]},
         { "default": "1000", "label": "PUID", "name": "PUID" },
         { "default": "1000", "label": "PGID", "name": "PGID" },
-        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" } ],
+        { "default": "America/Los_Angeles", "label": "TZ", "name": "TZ" }],
       "ports": [ "4433:443/tcp" ],
       "expose": [ "80/tcp" ],
       "image": "percona/pmm-server:2",
@@ -902,9 +900,7 @@
       "container_name": "pmm-server",
       "network": "docweb",
       "restart_policy": "unless-stopped",
-      "volumes": [
-        { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" }]
-    },
+      "volumes": [ { "container": "/srv", "bind": "/opt/docker/app_data/pmm-server/pmm-data" }] },
     { 
       "type": 1,
       "title": "minio-server",
@@ -950,18 +946,8 @@
         { "default": "endpoint", "label": "Webhook Notify Format", "name": "MINIO_NOTIFY_WEBHOOK_FORMAT" }
       ],
         "expose": [ "9000", "9001" ],
-        "extra_hosts": [
-          "host.docker.internal:host-gateway",
-          "minio.docker.revrebel.cloud:127.0.0.1"
-        ],
-        "command": [
-          "server",
-          "--address",
-          "0.0.0.0:9000",
-          "--console-address",
-          "0.0.0.0:9001",
-          "/data"
-        ],
+        "extra_hosts": [ "host.docker.internal:host-gateway", "minio.docker.revrebel.cloud:192.168.13.1" ],
+        "command": [ "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data" ],
         "hostname": "minio",
         "image": "minio/minio:latest",
         "networks": { "docweb": { "aliases": [ "minio_s3", "minio_console" ]} },
@@ -972,16 +958,8 @@
           "interval": "60s",
           "timeout": "30s",
           "startPeriod": "30s",
-          "retries": "5"
-      },
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "/mnt/docker_disk1",
-          "target": "/data",
-          "bind": { "create_host_path": true }
-        }
-      ]
-    }
+          "retries": "5" },
+       "volumes": [{ "container":"/data", "bind":"/mnt/docker_disk1" }]
+     }
   ]
 }
